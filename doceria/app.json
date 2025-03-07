@@ -28,7 +28,7 @@
     "plugins": [ [
       "expo-font",
       {
-        "fonts": ["./assets/fonts/Sacramento_400Regular.ttf"]
+        "fonts": ["node_modules/@expo-google-fonts/inter/Inter_900Black.ttf"]
       }
     ]
     ]

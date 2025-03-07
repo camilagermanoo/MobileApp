@@ -7,7 +7,13 @@ class App extends Component {
     return(
       <View>
         <Text style={{color: '#BE5985', fontSize: 25, margin: 10}}>Projeto de doceria</Text>
-        <Text style={{color: '#BE5985', fontSize: 23, margin: 10}}>Doceria</Text>
+        <Text style={{color: '#BE5985', fontSize: 23, margin: 10,
+          fontFamily: Platform.select
+          ({
+            android: 'Inter_900Black',
+            ios: 'Inter-Black',
+          }),
+        }}>Doceria</Text>
         <Jobs largura={200} altura={200}/>
       </View>
     );
