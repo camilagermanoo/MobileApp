@@ -1,24 +1,40 @@
 import React, { Component } from "react";
-import { View, Text, Image} from 'react-native';
+import { View, Text, Image, Button} from 'react-native';
 import { Platform } from "react-native"; // fontes
 
 class App extends Component {
+  //Estrutura do Botão
+    constructor(props){
+      super(props);
+      this.state = {
+        nome: ''
+      };
+
+      this.entrar = this.entrar.bind(this);
+    }
+    //Estrutura Interna do Botão
+      entrar(nome){
+        this.setState({
+          nome: nome
+        })
+      }
   render() {
+
+    let nome = 'Camila';
+
     return(
-      <View>
-        <Text style={{color: '#BE5985', fontSize: 25, margin: 10}}>Projeto de doceria</Text>
-        <Text style={{color: '#BE5985', fontSize: 23, margin: 10,
-          fontFamily: Platform.select
-          ({
-            android: 'Inter_900Black',
-            ios: 'Inter-Black',
-          }),
-        }}>Doceria</Text>
+      <View style={{marginTop: 25}}>
+        <Text style={{color: '#B03052', fontSize: 35, margin: 10, textAlign:'center'}}>Doceria</Text>
+        <Text style={{fontFamily: Platform.select({android: 'Inter_900Black',ios: 'Inter-Black'}), color: '#B03052', fontSize: 20, textAlign:'center' }}>Menu doceria</Text>
+        <Button title="Entrar" onPress={() => this.entrar('Seja bem vindo(a) ao menu da doceria!')}/>
+        <Text style={{fontSize: 30, color: 'black', textAlign:'center'}}>{this.state.nome}</Text>
+        <Text style={{fontSize: 25, color: '#F37199', textAlign: 'center'}}> {nome} </Text>
         <Jobs largura={200} altura={200}/>
       </View>
     );
   }
 }
+
 export default App;
 
 // Processo de Carregamento rápido da aplicação
@@ -35,32 +51,32 @@ class Jobs extends Component {
           <Image
           source={{uri: imgCupcake}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Cupcake</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Preço: R$ 5,00</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Cupcake</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 5,00</Text>
 
           <Image
           source={{uri: imgDonut}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Donuts</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Preço: R$ 4,00</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Donuts</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 4,00</Text>
 
           <Image
           source={{uri: imgMacaron}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Macarons</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Preço: R$ 1,50</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Macarons</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 1,50</Text>
 
           <Image
           source={{uri: imgCookie}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Cookie</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Preço: R$ 3,00</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Cookie</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 3,00</Text>
 
           <Image
           source={{uri: imgBolo}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Fatia de bolo</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10}}>Preço: R$ 10,00</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Fatia de bolo</Text>
+          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 10,00</Text>
         </View>
         
       );
