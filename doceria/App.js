@@ -25,10 +25,15 @@ class App extends Component {
     return(
       <View style={{marginTop: 25}}>
         <Text style={{color: '#B03052', fontSize: 35, margin: 10, textAlign:'center'}}>Doceria</Text>
-        <Text style={{fontFamily: Platform.select({android: 'Inter_900Black',ios: 'Inter-Black'}), color: '#B03052', fontSize: 20, textAlign:'center' }}>Menu doceria</Text>
+        <Text style={{fontFamily: Platform.select({android: 'playwritemagyarország_300Light',ios: 'playwritemagyarország-Light'}), color: '#B03052', fontSize: 20, textAlign:'center' }}>Menu doceria</Text>
+
+        {/* mensagem de boas-vindas */}
         <Button color={'#B03052'} title="Entrar" onPress={() => this.entrar('Seja bem vindo(a) ao menu da doceria!')}/>
+
+        {/* nome */}
         <Text style={{fontSize: 30, color: '#F37199', textAlign:'center'}}>{this.state.nome}</Text>
         <Text style={{fontSize: 25, color: '#F37199', textAlign: 'center'}}> {nome} </Text>
+
         <Jobs largura={200} altura={200}/>
       </View>
     );
