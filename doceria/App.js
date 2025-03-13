@@ -47,7 +47,7 @@ class Jobs extends Component {
       let imgBolo = 'https://images.pexels.com/photos/18160775/pexels-photo-18160775/free-photo-of-cheesecake-de-morango.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'  
 
       return(
-        <View>
+        <View style={{ alignItems: 'center' }}>
           <Image
           source={{uri: imgCupcake}} style={{width: this.props.largura, height: this.props.altura}}
           />
