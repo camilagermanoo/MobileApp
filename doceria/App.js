@@ -1,4 +1,6 @@
+import { useFonts } from "expo-font";
 import React, { Component } from "react";
+import { use } from "react";
 import { View, Text, Image} from 'react-native';
 import { Platform } from "react-native"; // fontes
 import { TouchableOpacity } from 'react-native'; //botão - estilizar botão
@@ -44,8 +46,16 @@ class App extends Component {
     );
   }
 }
+export default function App(){
+  const [fontsLoaded] = useFonts({
+    'Ovo-Regular': require('./assets/fonts/Ovo-Regular.ttf')
+  });
 
-export default App;
+  if (!fontsLoaded) {
+    return null;
+  }
+}
+
 
 // Processo de Carregamento rápido da aplicação
 class Jobs extends Component {
@@ -62,7 +72,7 @@ class Jobs extends Component {
           source={{uri: imgCupcake}} style={{width: this.props.largura, height: this.props.altura}}
           />
           <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold', textDecorationLine: 'underline' }}>Cupcake</Text>
-          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 5,00</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontFamily:"Ovo-Regular"}}>Preço: R$ 5,00</Text>
 
           <Image
           source={{uri: imgDonut}} style={{width: this.props.largura, height: this.props.altura}}
