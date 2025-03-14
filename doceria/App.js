@@ -54,7 +54,7 @@ class Jobs extends Component {
       let imgDonut = 'https://images.pexels.com/photos/4686962/pexels-photo-4686962.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
       let imgMacaron = 'https://img.freepik.com/fotos-gratis/tres-macarons-de-sabor-variado_198174-26.jpg?t=st=1741373747~exp=1741377347~hmac=8f4fad8e8cafbadef8bb13824da5862b91419d955a8d3881e9b7041a52888952&w=740';
       let imgCookie = 'https://img.freepik.com/fotos-gratis/bolachas-de-chocolate_1401-441.jpg?t=st=1741377189~exp=1741380789~hmac=563079b0519473c86489f9aa23df6159579da5f7837160c66f948b2828e7b2e7&w=740'
-      let imgBolo = 'https://images.pexels.com/photos/18160775/pexels-photo-18160775/free-photo-of-cheesecake-de-morango.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'  
+      let imgBolo = 'https://images.pexels.com/photos/18160775/pexels-photo-18160775/free-photo-of-cheesecake-de-morango.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' 
 
       return(
         <View style={{ alignItems: 'center' }}>
@@ -67,25 +67,25 @@ class Jobs extends Component {
           <Image
           source={{uri: imgDonut}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold'}}>Donuts</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold', textDecorationLine: 'underline'}}>Donuts</Text>
           <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 4,00</Text>
 
           <Image
           source={{uri: imgMacaron}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold'}}>Macarons</Text>
-          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 1,50</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold', textDecorationLine: 'underline'}}>Macarons</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 2,50</Text>
 
           <Image
           source={{uri: imgCookie}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold'}}>Cookie</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold', textDecorationLine: 'underline'}}>Cookie</Text>
           <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 3,00</Text>
 
           <Image
           source={{uri: imgBolo}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#c2516f9', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold'}}>Fatia de bolo</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold', textDecorationLine: 'underline'}}>Fatia de bolo</Text>
           <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 10,00</Text>
         </View>
         
