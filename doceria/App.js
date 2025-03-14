@@ -1,6 +1,4 @@
-import { useFonts } from "expo-font";
 import React, { Component } from "react";
-import { use } from "react";
 import { View, Text, Image} from 'react-native';
 import { Platform } from "react-native"; // fontes
 import { TouchableOpacity } from 'react-native'; //botão - estilizar botão
@@ -27,8 +25,8 @@ class App extends Component {
 
     return(
       <View style={{marginTop: 25, alignItems: "center"}}>
-        <Text style={{color: '#B03052', fontSize: 35, margin: 10, textAlign:'center'}}>Doceria</Text>
-        <Text style={{fontFamily: Platform.select({android: 'playwritemagyarország_300Light',ios: 'playwritemagyarország-Light'}), color: '#B03052', fontSize: 20, textAlign:'center' }}>Menu doceria</Text>
+        <Text style={{fontFamily: Platform.select({android: 'Ovo_400Regular',ios: 'Ovo-Regular'}),color: '#B03052', fontSize: 35, margin: 10, textAlign:'center'}}>Doceria</Text>
+        <Text style={{fontFamily: Platform.select({android: 'Ovo_400Regular',ios: 'Ovo-Regular'}),color: '#B03052', fontSize: 28, margin: 10, textAlign:'center' }}>Menu doceria</Text>
 
         {/* botão com mensagem de boas-vindas */}
         <TouchableOpacity 
@@ -46,16 +44,8 @@ class App extends Component {
     );
   }
 }
-export default function App(){
-  const [fontsLoaded] = useFonts({
-    'Ovo-Regular': require('./assets/fonts/Ovo-Regular.ttf')
-  });
 
-  if (!fontsLoaded) {
-    return null;
-  }
-}
-
+export default App;
 
 // Processo de Carregamento rápido da aplicação
 class Jobs extends Component {
@@ -72,7 +62,7 @@ class Jobs extends Component {
           source={{uri: imgCupcake}} style={{width: this.props.largura, height: this.props.altura}}
           />
           <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontWeight: 'bold', textDecorationLine: 'underline' }}>Cupcake</Text>
-          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontFamily:"Ovo-Regular"}}>Preço: R$ 5,00</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center', fontFamily:'Ovo'}}>Preço: R$ 5,00</Text>
 
           <Image
           source={{uri: imgDonut}} style={{width: this.props.largura, height: this.props.altura}}

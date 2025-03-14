@@ -28,7 +28,7 @@
     "plugins": [ [
       "expo-font",
       {
-        "fonts": ["node_modules/@expo-google-fonts/ovo/Ovo_Regular.ttf"]
+        "fonts": ["node_modules/@expo-google-fonts/ovo/Ovo_400Regular.ttf"]
       }
     ]
     ]

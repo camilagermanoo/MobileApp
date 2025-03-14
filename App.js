@@ -13,8 +13,8 @@ const Card = ({titulo, descricao}) => {
 export default function App() {
 return(
     <View style={styles.bordacard}>
-        <Card titulo="Filme XY" descricao="Este filme é um exemplo de vida"/>
-        <Card titulo="Filme XY" descricao="Este filme é um exemplo de vida"/>
+        <Card titulo="Cupcake" descricao="Surgiu em 1976 e eram bolinhos para serem assados em pequenas xícaras."/>
+        <Card titulo="Donuts" descricao="Surgiu em 1847, através do termo doughnut, que significa rosa frita em português."/>
         
     </View>
 );
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 16,
         fontWeight: 'bold',
-        fontFamily: 'Big Shoulders Stencil',
+        fontFamily: 'Ovo',
     },
 
     descricao: {
