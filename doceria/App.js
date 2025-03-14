@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, Image, Button} from 'react-native';
+import { View, Text, Image} from 'react-native';
 import { Platform } from "react-native"; // fontes
+import { TouchableOpacity } from 'react-native'; //botão - estilizar botão
 
 class App extends Component {
   //Estrutura do Botão
@@ -23,12 +24,16 @@ class App extends Component {
     let nome = 'Camila';
 
     return(
-      <View style={{marginTop: 25}}>
+      <View style={{marginTop: 25, alignItems: "center"}}>
         <Text style={{color: '#B03052', fontSize: 35, margin: 10, textAlign:'center'}}>Doceria</Text>
         <Text style={{fontFamily: Platform.select({android: 'playwritemagyarország_300Light',ios: 'playwritemagyarország-Light'}), color: '#B03052', fontSize: 20, textAlign:'center' }}>Menu doceria</Text>
 
-        {/* mensagem de boas-vindas */}
-        <Button color={'#B03052'} title="Entrar" onPress={() => this.entrar('Seja bem vindo(a) ao menu da doceria!')}/>
+        {/* botão com mensagem de boas-vindas */}
+        <TouchableOpacity 
+          style={{ width: 200, backgroundColor: '#B03052', padding: 10, borderRadius: 5, alignItems: 'center'}} 
+          onPress={() => this.entrar('Seja bem-vindo(a) ao menu da doceria!')}>
+          <Text style={{ color: 'white', textAlign: 'center', fontSize: 20}}>Entrar</Text>
+        </TouchableOpacity>
 
         {/* nome */}
         <Text style={{fontSize: 30, color: '#F37199', textAlign:'center'}}>{this.state.nome}</Text>
