@@ -36,8 +36,8 @@ class App extends Component {
         </TouchableOpacity>
 
         {/* nome */}
-        <Text style={{fontSize: 30, color: '#F37199', textAlign:'center'}}>{this.state.nome}</Text>
-        <Text style={{fontSize: 25, color: '#F37199', textAlign: 'center'}}> {nome} </Text>
+        <Text style={{fontSize: 30, color: '#c44365', textAlign:'center'}}>{this.state.nome}</Text>
+        <Text style={{fontSize: 25, color: '#c44365', textAlign: 'center'}}> {nome} </Text>
 
         <Jobs largura={200} altura={200}/>
       </View>
@@ -61,32 +61,32 @@ class Jobs extends Component {
           <Image
           source={{uri: imgCupcake}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Cupcake</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 5,00</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Cupcake</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 5,00</Text>
 
           <Image
           source={{uri: imgDonut}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Donuts</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 4,00</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Donuts</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 4,00</Text>
 
           <Image
           source={{uri: imgMacaron}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Macarons</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 1,50</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Macarons</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 1,50</Text>
 
           <Image
           source={{uri: imgCookie}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Cookie</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 3,00</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Cookie</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 3,00</Text>
 
           <Image
           source={{uri: imgBolo}} style={{width: this.props.largura, height: this.props.altura}}
           />
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Fatia de bolo</Text>
-          <Text style={{color: '#F37199', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 10,00</Text>
+          <Text style={{color: '#c2516f9', fontSize: 18, margin: 10, textAlign:'center'}}>Fatia de bolo</Text>
+          <Text style={{color: '#c2516f', fontSize: 18, margin: 10, textAlign:'center'}}>Preço: R$ 10,00</Text>
         </View>
         
       );
