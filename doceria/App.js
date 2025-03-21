@@ -1,46 +1,54 @@
 import React, { Component } from "react";
 import { View, Text, Image} from 'react-native';
-import { Platform } from "react-native"; // fontes
 import { TouchableOpacity } from 'react-native'; //botão - estilizar botão
 import { StyleSheet } from "react-native";
+import { TextInput } from "react-native";
 
 class App extends Component {
-  //Estrutura do Botão
-    constructor(props){
-      super(props);
-      this.state = {
-        nome: ''
-      };
+  constructor(props) {
+    super(props);
+    this.state = {
+      nome: '',
+      mensagem: ''
+    };
+  }
 
-      this.entrar = this.entrar.bind(this);
+  entrar = () => {
+    if (this.state.nome.trim() !== '') {
+      this.setState({ mensagem: `Seja bem-vindo(a) ao menu da doceria, ${this.state.nome}!` });
+    } else {
+      this.setState({ mensagem: 'Por favor, insira seu nome!' });
     }
-    //Estrutura Interna do Botão
-      entrar(nome){
-        this.setState({
-          nome: nome
-        })
-      }
+  };
+
   render() {
+    return (
+      <View style={{ marginTop: 25, alignItems: 'center' }}>
+        <Text style={{ color: '#B03052', fontSize: 35, margin: 10, textAlign: 'center' }}>Doceria</Text>
+        <Text style={{ color: '#B03052', fontSize: 28, margin: 10, textAlign: 'center' }}>Menu doceria</Text>
 
-    let nome = 'Camila';
+        {/* Campo para inserir nome */}
+        <TextInput
+          style={{ width: 200, height: 40, borderColor: '#B03052', borderWidth: 1, borderRadius: 5, padding: 10, textAlign: 'center', marginBottom: 10 }}
+          placeholder="Digite seu nome"
+          onChangeText={(text) => this.setState({ nome: text })}
+          value={this.state.nome}
+        />
 
-    return(
-      <View style={{marginTop: 25, alignItems: "center"}}>
-        <Text style={{fontFamily: Platform.select({android: 'Ovo_400Regular',ios: 'Ovo-Regular'}),color: '#B03052', fontSize: 35, margin: 10, textAlign:'center'}}>Doceria</Text>
-        <Text style={{fontFamily: Platform.select({android: 'Ovo_400Regular',ios: 'Ovo-Regular'}),color: '#B03052', fontSize: 28, margin: 10, textAlign:'center' }}>Menu doceria</Text>
-
-        {/* botão com mensagem de boas-vindas */}
-        <TouchableOpacity 
-          style={{ width: 200, backgroundColor: '#B03052', padding: 10, borderRadius: 5, alignItems: 'center'}} 
-          onPress={() => this.entrar('Seja bem-vindo(a) ao menu da doceria!')}>
-          <Text style={{ color: 'white', textAlign: 'center', fontSize: 20}}>Entrar</Text>
+        {/* Botão de entrada */}
+        <TouchableOpacity
+          style={{ width: 200, backgroundColor: '#B03052', padding: 10, borderRadius: 5, alignItems: 'center' }}
+          onPress={this.entrar}
+        >
+          <Text style={{ color: 'white', textAlign: 'center', fontSize: 20 }}>Entrar</Text>
         </TouchableOpacity>
 
-        {/* nome */}
-        <Text style={{fontSize: 30, color: '#c44365', textAlign:'center'}}>{this.state.nome}</Text>
-        <Text style={{fontSize: 25, color: '#c44365', textAlign: 'center'}}> {nome} </Text>
+        {/* Mensagem de boas-vindas */}
+        {this.state.mensagem !== '' && (
+          <Text style={{ fontSize: 30, color: '#c44365', textAlign: 'center', marginTop: 20 }}>{this.state.mensagem}</Text>
+        )}
 
-        <Jobs width={200} height={200}/>
+      <Jobs width={200} height={200}/>
       </View>
     );
   }
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
     width: 220,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 30,
+    margin: 15,
   },
   titulo: {
     fontSize: 16,
