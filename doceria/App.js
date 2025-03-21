@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image} from 'react-native';
+import { View, Text, Image, ScrollView} from 'react-native';
 import { TouchableOpacity } from 'react-native'; //botão - estilizar botão
 import { StyleSheet } from "react-native";
 import { TextInput } from "react-native";
@@ -48,7 +48,9 @@ class App extends Component {
           <Text style={{ fontSize: 30, color: '#c44365', textAlign: 'center', marginTop: 20 }}>{this.state.mensagem}</Text>
         )}
 
-      <Jobs width={200} height={200}/>
+        <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false} scrollEnabled={true}>
+          <Jobs width={200} height={200}/>
+        </ScrollView>
       </View>
     );
   }
