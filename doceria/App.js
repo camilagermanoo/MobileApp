@@ -29,7 +29,7 @@ class App extends Component {
 
         {/* Campo para inserir nome */}
         <TextInput
-          style={{ width: 200, height: 40, borderColor: '#B03052', borderWidth: 1, borderRadius: 5, padding: 10, textAlign: 'center', marginBottom: 10 }}
+          style={{ width: 200, height: 40, borderColor: '#B03052', borderWidth: 1, borderRadius: 5, padding: 10, textAlign: 'center', marginBottom: 20 }}
           placeholder="Digite seu nome"
           onChangeText={(text) => this.setState({ nome: text })}
           value={this.state.nome}
@@ -37,10 +37,10 @@ class App extends Component {
 
         {/* Botão de entrada */}
         <TouchableOpacity
-          style={{ width: 200, backgroundColor: '#B03052', padding: 10, borderRadius: 5, alignItems: 'center' }}
+          style={{ width: 200, backgroundColor: '#B03052', padding: 10, borderRadius: 5, alignItems: 'center', marginBottom: 20 }}
           onPress={this.entrar}
         >
-          <Text style={{ color: 'white', textAlign: 'center', fontSize: 20 }}>Entrar</Text>
+          <Text style={{ color: 'white', textAlign: 'center', fontSize: 20}}>Entrar</Text>
         </TouchableOpacity>
 
         {/* Mensagem de boas-vindas */}
@@ -108,7 +108,7 @@ class Jobs extends Component {
     let imgBolo = 'https://images.pexels.com/photos/18160775/pexels-photo-18160775/free-photo-of-cheesecake-de-morango.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 
     return(
-      <View style={{flexDirection: 'column', flexWrap: 'wrap', alignItems: "center", justifyContent: "center"}}>
+      <View style={{flexDirection: 'column', alignItems: "center", justifyContent: "center"}}>
         <Card imagem={imgCupcake} nome="Cupcake" preco="R$ 5,00" />
         <Card imagem={imgDonut} nome="Donuts" preco="R$ 4,00" />
         <Card imagem={imgMacaron} nome="Macarons" preco="R$ 2,50" />
