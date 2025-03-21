@@ -45,8 +45,8 @@ class App extends Component {
           <Text style={styles.mensagem}>{this.state.mensagem}</Text>
         )}
 
-<ScrollView style={styles.scroll} showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
-          <Jobs />
+        <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+        <Jobs width={200} height={200}/>
           <Lista />
         </ScrollView>
       </View>
