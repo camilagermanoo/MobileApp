@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, ScrollView} from 'react-native';
+import { View, Text, Image, ScrollView, FlatList} from 'react-native';
 import { TouchableOpacity } from 'react-native'; //botão - estilizar botão
 import { StyleSheet } from "react-native";
 import { TextInput } from "react-native";
@@ -24,32 +24,30 @@ class App extends Component {
   render() {
     return (
       <View style={{ marginTop: 25, alignItems: 'center' }}>
-        <Text style={{ color: '#B03052', fontSize: 35, margin: 10, textAlign: 'center' }}>Doceria</Text>
-        <Text style={{ color: '#B03052', fontSize: 28, margin: 10, textAlign: 'center' }}>Menu doceria</Text>
+        <Text style={styles.tituloPrincipal}>Doceria</Text>
+        <Text style={styles.subTitulo}>Menu doceria</Text>
 
         {/* Campo para inserir nome */}
         <TextInput
-          style={{ width: 200, height: 40, borderColor: '#B03052', borderWidth: 1, borderRadius: 5, padding: 10, textAlign: 'center', marginBottom: 20 }}
+          style={styles.input}
           placeholder="Digite seu nome"
           onChangeText={(text) => this.setState({ nome: text })}
           value={this.state.nome}
         />
 
         {/* Botão de entrada */}
-        <TouchableOpacity
-          style={{ width: 200, backgroundColor: '#B03052', padding: 10, borderRadius: 5, alignItems: 'center', marginBottom: 20 }}
-          onPress={this.entrar}
-        >
-          <Text style={{ color: 'white', textAlign: 'center', fontSize: 20}}>Entrar</Text>
+        <TouchableOpacity style={styles.botao} onPress={this.entrar}>
+          <Text style={styles.textoBotao}>Entrar</Text>
         </TouchableOpacity>
 
         {/* Mensagem de boas-vindas */}
         {this.state.mensagem !== '' && (
-          <Text style={{ fontSize: 30, color: '#c44365', textAlign: 'center', marginTop: 20 }}>{this.state.mensagem}</Text>
+          <Text style={styles.mensagem}>{this.state.mensagem}</Text>
         )}
 
-        <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false} scrollEnabled={true}>
-          <Jobs width={200} height={200}/>
+<ScrollView style={styles.scroll} showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+          <Jobs />
+          <Lista />
         </ScrollView>
       </View>
     );
@@ -60,18 +58,111 @@ class App extends Component {
 const Card = ({ imagem, nome, preco }) => {
   return (
     <View style={styles.card}>
-      <Image
-        source={{uri: imagem}} 
-        style={{width: '100%', height: 150, borderRadius: 10}} 
-      />
+      <Image source={{ uri: imagem }} style={styles.imagem} />
       <Text style={styles.titulo}>{nome}</Text>
       <Text style={styles.descricao}>Preço: {preco}</Text>
     </View>
   );
 };
 
+// Componente para exibir os produtos
+class Jobs extends Component {
+  render() {
+    let produtos = [
+      { nome: "Cupcake", preco: "R$ 5,00", imagem: "https://images.pexels.com/photos/1055270/pexels-photo-1055270.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+      { nome: "Donuts", preco: "R$ 4,00", imagem: "https://images.pexels.com/photos/4686962/pexels-photo-4686962.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+      { nome: "Macarons", preco: "R$ 2,50", imagem: "https://img.freepik.com/fotos-gratis/tres-macarons-de-sabor-variado_198174-26.jpg?w=740" },
+      { nome: "Cookie", preco: "R$ 3,00", imagem: "https://img.freepik.com/fotos-gratis/bolachas-de-chocolate_1401-441.jpg?w=740" },
+      { nome: "Fatia de bolo", preco: "R$ 10,00", imagem: "https://images.pexels.com/photos/18160775/pexels-photo-18160775/free-photo-of-cheesecake-de-morango.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" }
+    ];
+
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
+        {produtos.map((item, index) => (
+          <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} />
+        ))}
+      </View>
+    );
+  }
+}
+
+// Componente para exibir os clientes
+class Lista extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      feed: [
+        { id: '1', nome: 'João', profissao: 'Confeiteiro' },
+        { id: '2', nome: 'Maria', profissao: 'Confeiteira' },
+        { id: '3', nome: 'José', profissao: 'Caixa' },
+        { id: '4', nome: 'Ana', profissao: 'Garçonete' }
+      ]
+    };
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={this.state.feed}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.listaItem}>
+              <Text style={styles.nomeLista}>{item.nome} - {item.profissao}</Text>
+            </View>
+          )}
+        />
+      </View>
+    );
+  }
+}
+
 // Estilos
 const styles = StyleSheet.create({
+  tituloPrincipal: {
+    color: '#B03052',
+    fontSize: 35,
+    margin: 10,
+    textAlign: 'center'
+  },
+  subTitulo: {
+    color: '#B03052',
+    fontSize: 28,
+    margin: 10,
+    textAlign: 'center'
+  },
+  input: {
+    width: 200,
+    height: 40,
+    borderColor: '#B03052',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    textAlign: 'center',
+    marginBottom: 20
+  },
+  botao: {
+    width: 200,
+    backgroundColor: '#B03052',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 20
+  },
+  textoBotao: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 20
+  },
+  mensagem: {
+    fontSize: 20,
+    color: '#c44365',
+    textAlign: 'center',
+    marginTop: 20
+  },
+  scroll: {
+    width: '100%'
+  },
   card: {
     padding: 15,
     borderRadius: 10,
@@ -80,45 +171,40 @@ const styles = StyleSheet.create({
     width: 220,
     alignItems: "center",
     justifyContent: "center",
-    margin: 15,
+    margin: 15
+  },
+  imagem: {
+    width: '100%',
+    height: 150,
+    borderRadius: 10
   },
   titulo: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#c2516f',
-    marginTop: 10,
+    marginTop: 10
   },
   descricao: {
     fontSize: 14,
     color: '#c2516f',
-    marginTop: 5,
+    marginTop: 5
   },
-  bordacard: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'green',
+    padding: 10
   },
-});
-
-// Componente para exibir os produtos
-class Jobs extends Component {
-  render() {
-    let imgCupcake = 'https://images.pexels.com/photos/1055270/pexels-photo-1055270.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-    let imgDonut = 'https://images.pexels.com/photos/4686962/pexels-photo-4686962.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-    let imgMacaron = 'https://img.freepik.com/fotos-gratis/tres-macarons-de-sabor-variado_198174-26.jpg?t=st=1741373747~exp=1741377347~hmac=8f4fad8e8cafbadef8bb13824da5862b91419d955a8d3881e9b7041a52888952&w=740';
-    let imgCookie = 'https://img.freepik.com/fotos-gratis/bolachas-de-chocolate_1401-441.jpg?t=st=1741377189~exp=1741380789~hmac=563079b0519473c86489f9aa23df6159579da5f7837160c66f948b2828e7b2e7&w=740';
-    let imgBolo = 'https://images.pexels.com/photos/18160775/pexels-photo-18160775/free-photo-of-cheesecake-de-morango.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-
-    return(
-      <View style={{flexDirection: 'column', alignItems: "center", justifyContent: "center"}}>
-        <Card imagem={imgCupcake} nome="Cupcake" preco="R$ 5,00" />
-        <Card imagem={imgDonut} nome="Donuts" preco="R$ 4,00" />
-        <Card imagem={imgMacaron} nome="Macarons" preco="R$ 2,50" />
-        <Card imagem={imgCookie} nome="Cookie" preco="R$ 3,00" />
-        <Card imagem={imgBolo} nome="Fatia de bolo" preco="R$ 10,00" />
-      </View>
-    );
+  listaItem: {
+    backgroundColor: '#FFEDFA',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5
+  },
+  nomeLista: {
+    fontSize: 16,
+    color: '#c2516f',
+    alignItems: "center",
+    justifyContent: "center",
   }
-}
+});
 
 export default App;
