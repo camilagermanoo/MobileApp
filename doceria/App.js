@@ -20,13 +20,14 @@ const App = () => {
 
   const entrar = () => {
     if (nome.trim() !== '') {
-      setMensagem(`Seja bem-vindo(a) ao menu da doceria, ${nome}!`);
+      setMensagem(`Seja bem-vindo(a) ao menu da Sweet Vibes, ${nome}!`);
     } else {
       setMensagem('Por favor, insira seu nome!');
     }
   };
 
   return (
+    <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
     <View style={{ flex: 1, alignItems: 'center', paddingTop: 20 }}>
       <Text style={styles.tituloPrincipal}>Confeitaria Sweet Vibes</Text>
       <Text style={styles.subTitulo}>Menu:</Text>
@@ -47,11 +48,10 @@ const App = () => {
       {/* Mensagem de boas-vindas */}
       {mensagem !== '' && <Text style={styles.mensagem}>{mensagem}</Text>}
 
-      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <Jobs />
         <Lista />
-      </ScrollView>
     </View>
+    </ScrollView>
   );
 };
 
@@ -153,10 +153,15 @@ const styles = StyleSheet.create({
     fontFamily: 'JostRegular',
   },
   mensagem: {
-    fontSize: 20,
-    color: '#c44365',
+    fontSize: 18,
+    color: '#B03052',
     textAlign: 'center',
-    marginTop: 20
+    fontFamily: 'JostRegular', 
+    padding: 10,
+    backgroundColor: '#FFEDFA', 
+    borderRadius: 10, 
+    elevation: 5, 
+    width: 220, 
   },
   scroll: {
     width: '100%'
@@ -191,15 +196,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    alignItems: 'center',
   },
   listaItem: {
     backgroundColor: '#FFEDFA',
-    padding: 10,
+    padding: 15, 
     marginVertical: 5,
-    borderRadius: 5,
+    borderRadius: 10, 
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%'
+    width: 220, 
+    justifyContent: "flex-start", 
+    elevation: 7,
   },
   nomeLista: {
     fontSize: 16,
