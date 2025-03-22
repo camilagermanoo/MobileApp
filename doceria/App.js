@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { View, Text, Image, ScrollView, FlatList, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import { Jost_400Regular } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
     PacificoRegular: Pacifico_400Regular,
+    JostRegular: Jost_400Regular,
   });
 
   const [nome, setNome] = useState('');
@@ -167,18 +169,20 @@ const styles = StyleSheet.create({
   imagem: {
     width: '100%',
     height: 150,
-    borderRadius: 10
+    borderRadius: 10,
   },
   titulo: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#c2516f',
-    marginTop: 10
+    marginTop: 10,
+    fontFamily: 'JostRegular',
   },
   descricao: {
     fontSize: 14,
     color: '#c2516f',
-    marginTop: 5
+    marginTop: 5,
+    fontFamily: 'JostRegular',
   },
   container: {
     flex: 1,
@@ -188,12 +192,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEDFA',
     padding: 10,
     marginVertical: 5,
-    borderRadius: 5
+    borderRadius: 5,
   },
   nomeLista: {
     fontSize: 16,
     color: '#c2516f',
     textAlign: "center",
+    fontFamily: 'JostRegular',
   }
 });
 
