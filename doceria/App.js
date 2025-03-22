@@ -39,7 +39,7 @@ const App = () => {
         value={nome}
       />
 
-      {/* Botão de entrada */}
+      {/* Botão de entrar */}
       <TouchableOpacity style={styles.botao} onPress={entrar}>
         <Text style={styles.textoBotao}>Entrar</Text>
       </TouchableOpacity>
@@ -88,11 +88,13 @@ const Jobs = () => {
 // Componente para exibir os clientes
 const Lista = () => {
   const feed = [
-    { id: '1', nome: 'João', profissao: 'Confeiteiro' },
-    { id: '2', nome: 'Maria', profissao: 'Confeiteira' },
-    { id: '3', nome: 'José', profissao: 'Caixa' },
-    { id: '4', nome: 'Ana', profissao: 'Garçonete' }
+    { id: '1', nome: 'João', profissao: 'Confeiteiro', imagem:"https://img.freepik.com/fotos-gratis/chef-masculino-decorando-uma-deliciosa-sobremesa-no-prato_23-2147863807.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '2', nome: 'Maria', profissao: 'Confeiteira', imagem:"https://img.freepik.com/fotos-gratis/pessoas-cozinhando-e-desfrutando-de-comida_23-2149257448.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '3', nome: 'Fernanda', profissao: 'Caixa', imagem:"https://img.freepik.com/fotos-gratis/trabalhador-de-supermercado-medindo-e-vendendo-carne-para-o-cliente_342744-1074.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '4', nome: 'Pedro', profissao: 'Garçom', imagem:"https://img.freepik.com/fotos-gratis/servimos-os-melhores-bolos_637285-7884.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '5', nome: 'Paulo', profissao: 'Motoboy', imagem: "https://img.freepik.com/fotos-gratis/jovem-adulto-levar-e-conceito-de-entrega_1194-589238.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid"},
   ];
+
 
   return (
     <View style={styles.container}>
@@ -101,6 +103,7 @@ const Lista = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.listaItem}>
+            <Image source={{ uri: item.imagem }} style={styles.imagemLista} />
             <Text style={styles.nomeLista}>{item.nome} - {item.profissao}</Text>
           </View>
         )}
@@ -128,11 +131,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 40,
     borderColor: '#B03052',
-    borderWidth: 1,
-    borderRadius: 5,
+    borderWidth: 3,
+    borderRadius: 7,
     padding: 10,
     textAlign: 'center',
-    marginBottom: 20
+    marginBottom: 20,
+    color: '#DBDBDB',
   },
   botao: {
     width: 200,
@@ -145,7 +149,8 @@ const styles = StyleSheet.create({
   textoBotao: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: 'JostRegular',
   },
   mensagem: {
     fontSize: 20,
@@ -169,7 +174,7 @@ const styles = StyleSheet.create({
   imagem: {
     width: '100%',
     height: 150,
-    borderRadius: 10,
+    borderRadius: 10
   },
   titulo: {
     fontSize: 16,
@@ -181,24 +186,32 @@ const styles = StyleSheet.create({
   descricao: {
     fontSize: 14,
     color: '#c2516f',
-    marginTop: 5,
-    fontFamily: 'JostRegular',
+    marginTop: 5
   },
   container: {
     flex: 1,
-    padding: 10
+    padding: 10,
   },
   listaItem: {
     backgroundColor: '#FFEDFA',
     padding: 10,
     marginVertical: 5,
     borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%'
   },
   nomeLista: {
     fontSize: 16,
     color: '#c2516f',
     textAlign: "center",
     fontFamily: 'JostRegular',
+  },
+  imagemLista: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10
   }
 });
 
