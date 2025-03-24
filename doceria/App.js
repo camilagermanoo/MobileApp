@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Jost_400Regular } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
+import { Picker } from "@react-native-picker/picker"; //biblioteca
 
 const App = () => {
   const [fontsLoaded] = useFonts({
