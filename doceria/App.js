@@ -4,7 +4,6 @@ import { useFonts } from 'expo-font';
 import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Jost_400Regular } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
-import { Picker } from "@react-native-picker/picker"; //biblioteca
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -86,27 +85,34 @@ const Jobs = () => {
   );
 };
 
-// Componente para exibir os clientes
+// Componente para exibir os funcionários
 const Lista = () => {
+  const [selecionado, setSelecionado] = useState(null);
   const feed = [
-    { id: '1', nome: 'João', profissao: 'Confeiteiro', imagem:"https://img.freepik.com/fotos-gratis/chef-masculino-decorando-uma-deliciosa-sobremesa-no-prato_23-2147863807.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
-    { id: '2', nome: 'Maria', profissao: 'Confeiteira', imagem:"https://img.freepik.com/fotos-gratis/pessoas-cozinhando-e-desfrutando-de-comida_23-2149257448.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
-    { id: '3', nome: 'Fernanda', profissao: 'Caixa', imagem:"https://img.freepik.com/fotos-gratis/trabalhador-de-supermercado-medindo-e-vendendo-carne-para-o-cliente_342744-1074.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
-    { id: '4', nome: 'Pedro', profissao: 'Garçom', imagem:"https://img.freepik.com/fotos-gratis/servimos-os-melhores-bolos_637285-7884.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
-    { id: '5', nome: 'Paulo', profissao: 'Motoboy', imagem: "https://img.freepik.com/fotos-gratis/jovem-adulto-levar-e-conceito-de-entrega_1194-589238.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid"},
+    { id: '1', nome: 'João', profissao: 'Confeiteiro', descricao: 'Desde pequeno, João se encantava com os doces feitos por sua avó. Cresceu experimentando receitas e desenvolvendo técnicas até se tornar um confeiteiro talentoso. Seu amor pela confeitaria vem da alegria de criar sobremesas que encantam os clientes.', imagem:"https://img.freepik.com/fotos-gratis/chef-masculino-decorando-uma-deliciosa-sobremesa-no-prato_23-2147863807.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '2', nome: 'Maria', profissao: 'Confeiteira', descricao: 'Maria sempre teve paixão pela arte de decorar bolos e criar doces especiais. Escolheu a confeitaria porque ama transformar ingredientes simples em verdadeiras obras-primas saborosas, tornando momentos especiais ainda mais doces.', imagem:"https://img.freepik.com/fotos-gratis/pessoas-cozinhando-e-desfrutando-de-comida_23-2149257448.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '3', nome: 'Fernanda', profissao: 'Caixa', descricao: 'Fernanda gosta de organização e atendimento ao público, e por isso escolheu trabalhar como caixa. Sua atenção aos detalhes garante que cada pedido seja registrado corretamente, proporcionando uma experiência tranquila e eficiente para os clientes.', imagem:"https://img.freepik.com/fotos-gratis/trabalhador-de-supermercado-medindo-e-vendendo-carne-para-o-cliente_342744-1074.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '4', nome: 'Pedro', profissao: 'Garçom', descricao: 'Pedro sempre foi comunicativo e gostava de interagir com pessoas. Escolheu ser garçom porque adora oferecer um atendimento acolhedor, garantindo que os clientes tenham uma experiência agradável e sintam-se bem recebidos.', imagem:"https://img.freepik.com/fotos-gratis/servimos-os-melhores-bolos_637285-7884.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '5', nome: 'Paulo', profissao: 'Motoboy', descricao: 'Paulo ama a liberdade de estar nas ruas e sempre foi apaixonado por motos. Tornou-se motoboy porque gosta da adrenalina do trânsito e da satisfação de entregar pedidos com rapidez e eficiência, garantindo que cada cliente receba sua encomenda no tempo certo.', imagem: "https://img.freepik.com/fotos-gratis/jovem-adulto-levar-e-conceito-de-entrega_1194-589238.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid"},
   ];
 
 
   return (
     <View style={styles.container}>
+      <Text style={styles.subTitulo}>Nossos funcionários:</Text>
       <FlatList
         data={feed}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.listaItem}>
-            <Image source={{ uri: item.imagem }} style={styles.imagemLista} />
-            <Text style={styles.nomeLista}>{item.nome} - {item.profissao}</Text>
-          </View>
+          <TouchableOpacity onPress={() => setSelecionado(selecionado === item.id ? null : item.id)}>
+            <View style={styles.listaItem}>
+              <Image source={{ uri: item.imagem }} style={styles.imagemLista} />
+              <Text style={styles.nomeLista}>{item.nome} - {item.profissao}</Text>
+            </View>
+            {selecionado === item.id && (
+              <Text style={styles.descricaoFuncionario}>{item.descricao}</Text>
+            )}
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -221,6 +227,19 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     marginRight: 10
+  },
+  descricaoFuncionario: {
+    fontSize: 14,
+    color: '#c2516f',
+    textAlign: 'center',
+    fontFamily: 'JostRegular',
+    marginTop: 5,
+    backgroundColor: '#FFEDFA',
+    padding: 10,
+    borderRadius: 5,
+    width: 220, 
+    alignSelf: 'center',
+    textAlign: 'center'
   }
 });
 
