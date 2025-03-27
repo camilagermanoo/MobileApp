@@ -49,15 +49,15 @@ const App = () => {
       />
 
       {/* Botão de entrar */}
-      <TouchableOpacity style={styles.botao} onPress={entrar}>
-        <Text style={styles.textoBotao}>Entrar</Text>
+      <TouchableOpacity style={styles.botaoEntrar} onPress={entrar}>
+        <Text style={styles.textoBotaoEntrar}>Entrar</Text>
       </TouchableOpacity>
 
       {/* Mensagem de boas-vindas */}
-      {mensagem !== '' && <Text style={[styles.mensagem, { color: corTexto }]}>{mensagem}</Text>}
+      {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
 
       <Jobs onAddCarrinho={adicionarAoCarrinho} />
-        <Lista />
+      <Lista />
     </View>
     </ScrollView>
   );
@@ -66,7 +66,7 @@ const App = () => {
 // Componente do card onde exibe os produtos com nome e preço
 const Card = ({ imagem, nome, preco, onAdd }) => {
   return (
-    <View style={styles.card}>
+    <View style={styles.cardProdutos}>
       <Image source={{ uri: imagem }} style={styles.imagem} />
       <Text style={styles.tituloProdutos}>{nome}</Text>
       <Text style={styles.descricaoProdutos}>Preço: {preco}</Text>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
-  botao: {
+  botaoEntrar: {
     width: 200,
     backgroundColor: '#B03052',
     padding: 10,
@@ -165,13 +165,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20
   },
-  textoBotao: {
+  textoBotaoEntrar: {
     color: 'white',
     textAlign: 'center',
     fontSize: 20,
     fontFamily: 'JostRegular',
   },
-  mensagem: {
+  mensagemBoasVindas: {
     fontSize: 18,
     color: '#B03052',
     textAlign: 'center',
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   scroll: {
     width: '100%'
   },
-  card: {
+  cardProdutos: {
     padding: 15,
     borderRadius: 10,
     backgroundColor: '#FFEDFA',
