@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     color: '#c2516f',
     textAlign: "center",
     fontFamily: 'JostRegular',
+    textDecorationLine: 'underline',
   },
   imagemLista: {
     width: 40,
