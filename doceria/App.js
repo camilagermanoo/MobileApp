@@ -14,7 +14,8 @@ const App = () => {
   const [nome, setNome] = useState('');
   const [mensagem, setMensagem] = useState('');
   const [carrinho, setCarrinho] = useState([]);
-  const [corTexto, setCorTexto] = useState(''); 
+  const [corTexto, setCorTexto] = useState('');
+  const [mostrarCarrinho, setMostrarCarrinho] = useState(false);
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -31,34 +32,62 @@ const App = () => {
 
   const adicionarAoCarrinho = (produto) => {
     setCarrinho([...carrinho, produto]);
-    console.log("Produto adicionado:", produto); 
+    console.log("Produto adicionado:", produto);
+  };
+
+  const toggleCarrinho = () => {
+    setMostrarCarrinho(!mostrarCarrinho);
   };
 
   return (
     <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
-    <View style={{ flex: 1, alignItems: 'center', paddingTop: 20 }}>
-      <Text style={styles.tituloPrincipal}>Confeitaria Sweet Vibes</Text>
-      <Text style={styles.subTitulo}>Menu:</Text>
+      <View style={{ flex: 1, alignItems: 'center', paddingTop: 20 }}>
+        <Text style={styles.tituloPrincipal}>Confeitaria Sweet Vibes</Text>
+        <Text style={styles.subTitulo}>Menu:</Text>
 
-      {/* Campo para inserir nome */}
-      <TextInput
-        style={styles.input}
-        placeholder="Digite seu nome"
-        onChangeText={setNome}
-        value={nome}
-      />
+        {/* Campo para inserir nome */}
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu nome"
+          onChangeText={setNome}
+          value={nome}
+        />
 
-      {/* Botão de entrar */}
-      <TouchableOpacity style={styles.botaoEntrar} onPress={entrar}>
-        <Text style={styles.textoBotaoEntrar}>Entrar</Text>
-      </TouchableOpacity>
+        {/* Botão de entrar */}
+        <TouchableOpacity style={styles.botaoEntrar} onPress={entrar}>
+          <Text style={styles.textoBotaoEntrar}>Entrar</Text>
+        </TouchableOpacity>
 
-      {/* Mensagem de boas-vindas */}
-      {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
+        {/* Mensagem de boas-vindas */}
+        {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
 
-      <Jobs onAddCarrinho={adicionarAoCarrinho} />
-      <Lista />
-    </View>
+        {/* Botão do carrinho */}
+        <TouchableOpacity style={styles.botaoCarrinho} onPress={toggleCarrinho}>
+          <Text style={styles.textoBotaoCarrinho}>Carrinho</Text>
+        </TouchableOpacity>
+
+        {/* Mostrar os itens no carrinho */}
+        {mostrarCarrinho && (
+          <View style={styles.carrinhoContainer}>
+            <Text style={styles.subTitulo}>Carrinho:</Text>
+            {carrinho.length === 0 ? (
+              <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
+            ) : (
+              carrinho.map((produto, index) => (
+                <Text key={index} style={styles.textoCarrinho}>
+                  {produto.nome} - {produto.preco}
+                </Text>
+              ))
+            )}
+          </View>
+        )}
+
+        {/* Exibindo os produtos */}
+        <Jobs onAddCarrinho={adicionarAoCarrinho} />
+
+        {/* Exibindo os funcionários */}
+        <Lista />
+      </View>
     </ScrollView>
   );
 };
@@ -88,9 +117,9 @@ const Jobs = ({ onAddCarrinho }) => {
   ];
 
   return (
-    <View style={{ alignItems: "center", justifyContent: "center", }}>
+    <View style={{ alignItems: "center", justifyContent: "center" }}>
       {produtos.map((item, index) => (
-         <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
+        <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
       ))}
     </View>
   );
@@ -100,13 +129,12 @@ const Jobs = ({ onAddCarrinho }) => {
 const Lista = () => {
   const [selecionado, setSelecionado] = useState(null);
   const feed = [
-    { id: '1', nome: 'João', profissao: 'Confeiteiro', descricao: 'Desde pequeno, João se encantava com os doces feitos por sua avó. Cresceu experimentando receitas e desenvolvendo técnicas até se tornar um confeiteiro talentoso. Seu amor pela confeitaria vem da alegria de criar sobremesas que encantam os clientes.', imagem:"https://img.freepik.com/fotos-gratis/chef-masculino-decorando-uma-deliciosa-sobremesa-no-prato_23-2147863807.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
-    { id: '2', nome: 'Maria', profissao: 'Confeiteira', descricao: 'Maria sempre teve paixão pela arte de decorar bolos e criar doces especiais. Escolheu a confeitaria porque ama transformar ingredientes simples em verdadeiras obras-primas saborosas, tornando momentos especiais ainda mais doces.', imagem:"https://img.freepik.com/fotos-gratis/pessoas-cozinhando-e-desfrutando-de-comida_23-2149257448.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
-    { id: '3', nome: 'Fernanda', profissao: 'Caixa', descricao: 'Fernanda gosta de organização e atendimento ao público, e por isso escolheu trabalhar como caixa. Sua atenção aos detalhes garante que cada pedido seja registrado corretamente, proporcionando uma experiência tranquila e eficiente para os clientes.', imagem:"https://img.freepik.com/fotos-gratis/trabalhador-de-supermercado-medindo-e-vendendo-carne-para-o-cliente_342744-1074.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
-    { id: '4', nome: 'Pedro', profissao: 'Garçom', descricao: 'Pedro sempre foi comunicativo e gostava de interagir com pessoas. Escolheu ser garçom porque adora oferecer um atendimento acolhedor, garantindo que os clientes tenham uma experiência agradável e sintam-se bem recebidos.', imagem:"https://img.freepik.com/fotos-gratis/servimos-os-melhores-bolos_637285-7884.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
-    { id: '5', nome: 'Paulo', profissao: 'Motoboy', descricao: 'Paulo ama a liberdade de estar nas ruas e sempre foi apaixonado por motos. Tornou-se motoboy porque gosta da adrenalina do trânsito e da satisfação de entregar pedidos com rapidez e eficiência, garantindo que cada cliente receba sua encomenda no tempo certo.', imagem: "https://img.freepik.com/fotos-gratis/jovem-adulto-levar-e-conceito-de-entrega_1194-589238.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid"},
+    { id: '1', nome: 'João', profissao: 'Confeiteiro', descricao: 'Desde pequeno, João se encantava com os doces feitos por sua avó...', imagem:"https://img.freepik.com/fotos-gratis/chef-masculino-decorando-uma-deliciosa-sobremesa-no-prato_23-2147863807.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '2', nome: 'Maria', profissao: 'Confeiteira', descricao: 'Maria sempre teve paixão pela arte de decorar bolos...', imagem:"https://img.freepik.com/fotos-gratis/pessoas-cozinhando-e-desfrutando-de-comida_23-2149257448.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '3', nome: 'Fernanda', profissao: 'Caixa', descricao: 'Fernanda gosta de organização e atendimento ao público...', imagem:"https://img.freepik.com/fotos-gratis/trabalhador-de-supermercado-medindo-e-vendendo-carne-para-o-cliente_342744-1074.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '4', nome: 'Pedro', profissao: 'Garçom', descricao: 'Pedro sempre foi comunicativo e gostava de interagir...', imagem:"https://img.freepik.com/fotos-gratis/servimos-os-melhores-bolos_637285-7884.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid" },
+    { id: '5', nome: 'Paulo', profissao: 'Motoboy', descricao: 'Paulo ama a liberdade de estar nas ruas...', imagem: "https://img.freepik.com/fotos-gratis/jovem-adulto-levar-e-conceito-de-entrega_1194-589238.jpg?uid=R190518562&ga=GA1.1.2083948576.1741373729&semt=ais_hybrid"},
   ];
-
 
   return (
     <View style={styles.container}>
@@ -147,7 +175,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'PacificoRegular',
   },
-  input: { // campo para adicionar nome
+  input: {
     width: 200,
     height: 40,
     borderColor: '#B03052',
@@ -163,7 +191,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: 20,
   },
   textoBotaoEntrar: {
     color: 'white',
@@ -175,15 +203,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#B03052',
     textAlign: 'center',
-    fontFamily: 'JostRegular', 
+    fontFamily: 'JostRegular',
     padding: 10,
-    backgroundColor: '#FFEDFA', 
-    borderRadius: 10, 
-    elevation: 5, 
-    width: 220, 
+    backgroundColor: '#FFEDFA',
+    borderRadius: 10,
+    elevation: 5,
+    width: 220,
   },
   scroll: {
-    width: '100%'
+    width: '100%',
   },
   cardProdutos: {
     padding: 15,
@@ -191,36 +219,34 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEDFA',
     elevation: 7,
     width: 220,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     margin: 15,
-     //sombra para android
+    //sombra para android
     elevation: 7,
     //sombra pra ios 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
-
   },
   imagem: {
     width: '100%',
     height: 150,
-    borderRadius: 10
+    borderRadius: 10,
   },
-  tituloProdutos: { 
+  tituloProdutos: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#c2516f',
     marginTop: 10,
     fontFamily: 'JostRegular',
     textDecorationLine: 'underline',
-
   },
   descricaoProdutos: {
     fontSize: 14,
     color: '#c2516f',
-    marginTop: 5
+    marginTop: 5,
   },
   container: {
     flex: 1,
@@ -229,16 +255,16 @@ const styles = StyleSheet.create({
   },
   listaItem: {
     backgroundColor: '#FFEDFA',
-    padding: 15, 
+    padding: 15,
     marginVertical: 5,
-    borderRadius: 10, 
+    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    width: 220, 
-    justifyContent: "flex-start", 
+    width: 220,
+    justifyContent: "flex-start",
     elevation: 7,
     margin: 15,
-     //sombra para android
+    //sombra para android
     elevation: 7,
     //sombra pra ios 
     shadowColor: '#000',
@@ -257,7 +283,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginRight: 10
+    marginRight: 10,
   },
   descricaoFuncionario: {
     fontSize: 14,
@@ -268,9 +294,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEDFA',
     padding: 10,
     borderRadius: 5,
-    width: 150, 
+    width: 150,
     alignSelf: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   botaoAdicionar: {
     width: 200,
@@ -286,7 +312,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontFamily: 'JostRegular',
-  }
+  },
+  
 });
 
 export default App;
