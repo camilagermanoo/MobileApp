@@ -66,8 +66,8 @@ const Card = ({ imagem, nome, preco, onAdd }) => {
   return (
     <View style={styles.card}>
       <Image source={{ uri: imagem }} style={styles.imagem} />
-      <Text style={styles.titulo}>{nome}</Text>
-      <Text style={styles.descricao}>Preço: {preco}</Text>
+      <Text style={styles.tituloProdutos}>{nome}</Text>
+      <Text style={styles.descricaoProdutos}>Preço: {preco}</Text>
       <TouchableOpacity style={styles.botaoAdicionar} onPress={onAdd}>
         <Text style={styles.textoBotaoAdicionar}>Adicionar</Text>
       </TouchableOpacity>
@@ -207,14 +207,16 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 10
   },
-  titulo: {
+  tituloProdutos: { 
     fontSize: 16,
     fontWeight: 'bold',
     color: '#c2516f',
     marginTop: 10,
     fontFamily: 'JostRegular',
+    textDecorationLine: 'underline',
+
   },
-  descricao: {
+  descricaoProdutos: {
     fontSize: 14,
     color: '#c2516f',
     marginTop: 5
@@ -234,6 +236,14 @@ const styles = StyleSheet.create({
     width: 220, 
     justifyContent: "flex-start", 
     elevation: 7,
+    margin: 15,
+     //sombra para android
+    elevation: 7,
+    //sombra pra ios 
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
   },
   nomeLista: {
     fontSize: 16,
@@ -273,7 +283,7 @@ const styles = StyleSheet.create({
   textoBotaoAdicionar: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 16,
     fontFamily: 'JostRegular',
   }
 });
