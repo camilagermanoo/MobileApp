@@ -14,6 +14,7 @@ const App = () => {
   const [nome, setNome] = useState('');
   const [mensagem, setMensagem] = useState('');
   const [carrinho, setCarrinho] = useState([]);
+  const [corTexto, setCorTexto] = useState(''); 
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -24,6 +25,7 @@ const App = () => {
       setMensagem(`Seja bem-vindo(a) ao menu da Sweet Vibes, ${nome}!`);
     } else {
       setMensagem('Por favor, insira seu nome!');
+      setCorTexto('#FF0000'); // mensagem vai aparecer de cor vermelha se o nome não for válido
     }
   };
 
@@ -52,7 +54,7 @@ const App = () => {
       </TouchableOpacity>
 
       {/* Mensagem de boas-vindas */}
-      {mensagem !== '' && <Text style={styles.mensagem}>{mensagem}</Text>}
+      {mensagem !== '' && <Text style={[styles.mensagem, { color: corTexto }]}>{mensagem}</Text>}
 
       <Jobs onAddCarrinho={adicionarAoCarrinho} />
         <Lista />
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'PacificoRegular',
   },
-  input: {
+  input: { // campo para adicionar nome
     width: 200,
     height: 40,
     borderColor: '#B03052',
@@ -154,7 +156,6 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'center',
     marginBottom: 20,
-    color: '#DBDBDB',
   },
   botao: {
     width: 200,
