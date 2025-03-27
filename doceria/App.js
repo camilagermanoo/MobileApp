@@ -192,7 +192,15 @@ const styles = StyleSheet.create({
     width: 220,
     alignItems: "center",
     justifyContent: "center",
-    margin: 15
+    margin: 15,
+     //sombra para android
+    elevation: 7,
+    //sombra pra ios 
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+
   },
   imagem: {
     width: '100%',
