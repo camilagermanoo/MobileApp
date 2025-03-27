@@ -43,6 +43,23 @@ const App = () => {
     <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1, alignItems: 'center', paddingTop: 20 }}>
         <Text style={styles.tituloPrincipal}>Confeitaria Sweet Vibes</Text>
+        {/* Botão do carrinho */}
+        <TouchableOpacity style={styles.botaoCarrinho} onPress={toggleCarrinho}>
+          <Text style={styles.textoBotaoCarrinho}>Ver carrinho</Text>
+        </TouchableOpacity>
+         {/* Mostrar os itens no carrinho */}
+         {mostrarCarrinho && (
+          <View style={styles.carrinhoContainer}>
+            <Text style={styles.subTitulo}>Seus itens:</Text>
+            {carrinho.length === 0 ? (
+              <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
+            ) : (
+              carrinho.map((produto, index) => (
+                <Text key={index} style={styles.textoProdutosCarrinho}> {produto.nome} - {produto.preco}</Text>
+              ))
+            )}
+          </View>
+        )}
         <Text style={styles.subTitulo}>Menu:</Text>
 
         {/* Campo para inserir nome */}
@@ -61,30 +78,9 @@ const App = () => {
         {/* Mensagem de boas-vindas */}
         {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
 
-        {/* Botão do carrinho */}
-        <TouchableOpacity style={styles.botaoCarrinho} onPress={toggleCarrinho}>
-          <Text style={styles.textoBotaoCarrinho}>Carrinho</Text>
-        </TouchableOpacity>
-
-        {/* Mostrar os itens no carrinho */}
-        {mostrarCarrinho && (
-          <View style={styles.carrinhoContainer}>
-            <Text style={styles.subTitulo}>Carrinho:</Text>
-            {carrinho.length === 0 ? (
-              <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
-            ) : (
-              carrinho.map((produto, index) => (
-                <Text key={index} style={styles.textoCarrinho}>
-                  {produto.nome} - {produto.preco}
-                </Text>
-              ))
-            )}
-          </View>
-        )}
-
         {/* Exibindo os produtos */}
         <Jobs onAddCarrinho={adicionarAoCarrinho} />
-
+        
         {/* Exibindo os funcionários */}
         <Lista />
       </View>
@@ -297,6 +293,7 @@ const styles = StyleSheet.create({
     width: 150,
     alignSelf: 'center',
     textAlign: 'center',
+    fontFamily: 'JostRegular',
   },
   botaoAdicionar: {
     width: 200,
@@ -313,7 +310,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'JostRegular',
   },
-  
+  botaoCarrinho: {
+    width: 100,
+    backgroundColor: '#B03052',
+    padding: 10,
+    borderRadius: 100,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  textoBotaoCarrinho: {
+    color: '#FFFFFF',
+    fontFamily: 'JostRegular',
+  },
+  textoProdutosCarrinho: {
+    color: '#000000',
+    fontFamily: 'JostRegular',
+  }
+
 });
 
 export default App;
