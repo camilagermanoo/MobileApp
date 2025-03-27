@@ -77,7 +77,7 @@ const Jobs = () => {
   ];
 
   return (
-    <View style={{ alignItems: "center", justifyContent: "center" }}>
+    <View style={{ alignItems: "center", justifyContent: "center", }}>
       {produtos.map((item, index) => (
         <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} />
       ))}
@@ -105,13 +105,15 @@ const Lista = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setSelecionado(selecionado === item.id ? null : item.id)}>
-            <View style={styles.listaItem}>
+            <View style={[styles.listaItem, selecionado === item.id && styles.listaItemExpandido]}>
               <Image source={{ uri: item.imagem }} style={styles.imagemLista} />
-              <Text style={styles.nomeLista}>{item.nome} - {item.profissao}</Text>
+              <View style={styles.textoContainer}>
+                <Text style={styles.nomeLista}>{item.nome} - {item.profissao}</Text>
+                {selecionado === item.id && (
+                  <Text style={styles.descricaoFuncionario}>{item.descricao}</Text>
+                )}
+              </View>
             </View>
-            {selecionado === item.id && (
-              <Text style={styles.descricaoFuncionario}>{item.descricao}</Text>
-            )}
           </TouchableOpacity>
         )}
       />
@@ -237,7 +239,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFEDFA',
     padding: 10,
     borderRadius: 5,
-    width: 220, 
+    width: 150, 
     alignSelf: 'center',
     textAlign: 'center'
   }
