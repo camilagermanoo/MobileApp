@@ -13,6 +13,7 @@ const App = () => {
 
   const [nome, setNome] = useState('');
   const [mensagem, setMensagem] = useState('');
+  const [carrinho, setCarrinho] = useState([]);
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -24,6 +25,11 @@ const App = () => {
     } else {
       setMensagem('Por favor, insira seu nome!');
     }
+  };
+
+  const adicionarAoCarrinho = (produto) => {
+    setCarrinho([...carrinho, produto]);
+    console.log("Produto adicionado:", produto); 
   };
 
   return (
@@ -48,26 +54,29 @@ const App = () => {
       {/* Mensagem de boas-vindas */}
       {mensagem !== '' && <Text style={styles.mensagem}>{mensagem}</Text>}
 
-        <Jobs />
+      <Jobs onAddCarrinho={adicionarAoCarrinho} />
         <Lista />
     </View>
     </ScrollView>
   );
 };
 
-// Componente do card para exibir as informações
-const Card = ({ imagem, nome, preco }) => {
+// Componente do card onde exibe os produtos com nome e preço
+const Card = ({ imagem, nome, preco, onAdd }) => {
   return (
     <View style={styles.card}>
       <Image source={{ uri: imagem }} style={styles.imagem} />
       <Text style={styles.titulo}>{nome}</Text>
       <Text style={styles.descricao}>Preço: {preco}</Text>
+      <TouchableOpacity style={styles.botaoAdicionar} onPress={onAdd}>
+        <Text style={styles.textoBotaoAdicionar}>Adicionar</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 // Componente para exibir os produtos
-const Jobs = () => {
+const Jobs = ({ onAddCarrinho }) => {
   const produtos = [
     { nome: "Cupcake", preco: "R$ 5,00", imagem: "https://images.pexels.com/photos/1055270/pexels-photo-1055270.jpeg" },
     { nome: "Donuts", preco: "R$ 4,00", imagem: "https://images.pexels.com/photos/4686962/pexels-photo-4686962.jpeg" },
@@ -79,7 +88,7 @@ const Jobs = () => {
   return (
     <View style={{ alignItems: "center", justifyContent: "center", }}>
       {produtos.map((item, index) => (
-        <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} />
+         <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
       ))}
     </View>
   );
@@ -243,6 +252,21 @@ const styles = StyleSheet.create({
     width: 150, 
     alignSelf: 'center',
     textAlign: 'center'
+  },
+  botaoAdicionar: {
+    width: 200,
+    backgroundColor: '#B03052',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  textoBotaoAdicionar: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 12,
+    fontFamily: 'JostRegular',
   }
 });
 
