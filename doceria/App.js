@@ -56,7 +56,8 @@ const App = () => {
       {/* Mensagem de boas-vindas */}
       {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
 
-      <Jobs onAddCarrinho={adicionarAoCarrinho} />
+      <Doces onAddCarrinho={adicionarAoCarrinho} />
+      <Salgados/>
       <Lista />
     </View>
     </ScrollView>
@@ -78,7 +79,7 @@ const Card = ({ imagem, nome, preco, onAdd }) => {
 };
 
 // Componente para exibir os produtos
-const Jobs = ({ onAddCarrinho }) => {
+const Doces = ({ onAddCarrinho }) => {
   const produtos = [
     { nome: "Cupcake", preco: "R$ 5,00", imagem: "https://images.pexels.com/photos/1055270/pexels-photo-1055270.jpeg" },
     { nome: "Donuts", preco: "R$ 4,00", imagem: "https://images.pexels.com/photos/4686962/pexels-photo-4686962.jpeg" },
@@ -95,6 +96,24 @@ const Jobs = ({ onAddCarrinho }) => {
     </View>
   );
 };
+
+const Salgados = ({ }) => {
+  const produtos = [
+    { nome: "Coxinha", preco: "R$ 5,00", imagem: "https://img.freepik.com/fotos-gratis/comida-brasileira-no-prato-alto_23-2148875245.jpg?ga=GA1.1.1641917442.1743164069&semt=ais_hybrid"},
+    { nome: "Enroladinho", preco: "R$ 10,00", imagem: "https://img.freepik.com/fotos-gratis/vista-de-cima-pulseiras-deliciosas-e-doces-com-recheio-na-mesa-de-madeira-cinza-doce-com-acucar-pastelaria-cha_140725-30998.jpg?ga=GA1.1.1641917442.1743164069&semt=ais_hybrid"},
+    { nome: "Pão de queijo", preco: "R$ 2,50", imagem: "https://img.freepik.com/fotos-gratis/delicioso-arranjo-de-doces-mexicanos_23-2150172311.jpg?ga=GA1.1.1641917442.1743164069&semt=ais_hybrid"},
+    { nome: "Empadinha", preco: "R$ 4,00", imagem: "https://cdn.casaeculinaria.com/wp-content/uploads/2023/08/23123947/Empada-de-frango.webp"},
+    { nome: "Esfirra", preco: "R$ 6,00", imagem: "https://img.freepik.com/fotos-gratis/rissois-com-batatas-e-cogumelos_2829-11547.jpg?ga=GA1.1.1641917442.1743164069&semt=ais_hybrid"},
+  ]
+
+  return (
+    <View style={{ alignItems: "center", justifyContent: "center"}}>
+      {produtos.map((item, index) => (
+        <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
+      ))}
+    </View>
+  )
+}
 
 // Componente para exibir os funcionários
 const Lista = () => {
