@@ -15,7 +15,7 @@
     "@expo-google-fonts/pacifico": "^0.2.3",
     "@expo-google-fonts/sacramento": "^0.2.3",
     "@expo/metro-runtime": "~4.0.1",
-    "expo": "~52.0.37",
+    "expo": "^52.0.41",
     "expo-app-loading": "^2.1.1",
     "expo-font": "~13.0.4",
     "expo-status-bar": "~2.0.1",
