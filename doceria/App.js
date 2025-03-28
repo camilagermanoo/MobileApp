@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, ScrollView, FlatList, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Image, ScrollView, FlatList, TouchableOpacity, StyleSheet, TextInput, Switch } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Jost_400Regular } from '@expo-google-fonts/jost';
@@ -55,6 +55,10 @@ const App = () => {
 
       {/* Mensagem de boas-vindas */}
       {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
+
+      <Switch value={this.state.status} // criar ideia pra switch
+      onValueChange={(valorSwitch) => this.setState({status: valorSwitch})}
+      />
 
       <Jobs onAddCarrinho={adicionarAoCarrinho} />
       <Lista />
