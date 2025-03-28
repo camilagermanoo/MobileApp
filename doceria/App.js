@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, ScrollView, FlatList, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Image, ScrollView, FlatList, TouchableOpacity, StyleSheet, TextInput, Switch} from 'react-native';
 import { useFonts } from 'expo-font';
 import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Jost_400Regular } from '@expo-google-fonts/jost';
@@ -15,6 +15,7 @@ const App = () => {
   const [mensagem, setMensagem] = useState('');
   const [carrinho, setCarrinho] = useState([]);
   const [corTexto, setCorTexto] = useState(''); 
+  const [mostrarSalgados, setMostrarSalgados] = useState(false);
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -37,7 +38,7 @@ const App = () => {
   return (
     <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
     <View style={{ flex: 1, alignItems: 'center', paddingTop: 20 }}>
-      <Text style={styles.tituloPrincipal}>Confeitaria Sweet Vibes</Text>
+      <Text style={styles.tituloPrincipal}>Sweet Vibes</Text>
       <Text style={styles.subTitulo}>Menu:</Text>
 
       {/* Campo para inserir nome */}
@@ -56,10 +57,20 @@ const App = () => {
       {/* Mensagem de boas-vindas */}
       {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
 
-      <Doces onAddCarrinho={adicionarAoCarrinho} />
-      <Salgados/>
+      {/* Switch para trocar de doce para salgado*/}
+      <View style={styles.switchContainer}>
+          <Text style={styles.textoSwitch}>Doces</Text>
+          <Switch
+            value={mostrarSalgados}
+            onValueChange={() => setMostrarSalgados(!mostrarSalgados)}
+          />
+          <Text style={styles.textoSwitch}>Salgados</Text>
+        </View>
+
+        {mostrarSalgados ? <Salgados onAddCarrinho={adicionarAoCarrinho} /> : <Doces onAddCarrinho={adicionarAoCarrinho} />}
+
       <Lista />
-    </View>
+      </View>
     </ScrollView>
   );
 };
@@ -89,9 +100,9 @@ const Doces = ({ onAddCarrinho }) => {
   ];
 
   return (
-    <View style={{ alignItems: "center", justifyContent: "center", }}>
+    <View style={{ alignItems: "center", justifyContent: "center" }}>
       {produtos.map((item, index) => (
-         <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
+        <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
       ))}
     </View>
   );
@@ -107,12 +118,12 @@ const Salgados = ({ }) => {
   ]
 
   return (
-    <View style={{ alignItems: "center", justifyContent: "center"}}>
+    <View style={{ alignItems: "center", justifyContent: "center" }}>
       {produtos.map((item, index) => (
         <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
       ))}
     </View>
-  )
+  );
 }
 
 // Componente para exibir os funcionários
@@ -306,7 +317,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontFamily: 'JostRegular',
-  }
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  textoSwitch: {
+    fontSize: 18,
+    marginHorizontal: 10,
+    color: '#B03052',
+    fontFamily: 'JostRegular',
+  },
 });
 
 export default App;
