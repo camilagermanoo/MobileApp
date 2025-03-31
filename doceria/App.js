@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Jost_400Regular } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
+import { Ionicons } from '@expo/vector-icons'
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -16,6 +17,8 @@ const App = () => {
   const [carrinho, setCarrinho] = useState([]);
   const [corTexto, setCorTexto] = useState(''); 
   const [mostrarSalgados, setMostrarSalgados] = useState(false);
+  const [busca, setBusca] = useState('');
+  const [borderFocus, setBorderFocus] = useState(false); // Estado para controlar o foco do input para a borda não ficar preta
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -43,10 +46,12 @@ const App = () => {
 
       {/* Campo para inserir nome */}
       <TextInput
-        style={styles.input}
+        style={[styles.input, borderFocus && styles.inputFocus]}
         placeholder="Digite seu nome"
         onChangeText={setNome}
         value={nome}
+        onFocus={() => setBorderFocus(true)} // Altera o estado para indicar que o campo está em foco
+        onBlur={() => setBorderFocus(false)}
       />
 
       {/* Botão de entrar */}
@@ -57,6 +62,13 @@ const App = () => {
       {/* Mensagem de boas-vindas */}
       {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
 
+      {/* Campo de busca de produto */}
+      <View>
+        <TextInput
+          placeholder ="Procure seu item"
+      />
+      </View>
+     
       {/* Switch para trocar de doce para salgado*/}
       <View style={styles.switchContainer}>
           <Text style={styles.textoSwitch}>Doces</Text>
@@ -67,7 +79,7 @@ const App = () => {
           <Text style={styles.textoSwitch}>Salgados</Text>
         </View>
 
-        {mostrarSalgados ? <Salgados onAddCarrinho={adicionarAoCarrinho} /> : <Doces onAddCarrinho={adicionarAoCarrinho} />}
+        {mostrarSalgados ? <Salgados onAddCarrinho={adicionarAoCarrinho} busca={busca} /> : <Doces onAddCarrinho={adicionarAoCarrinho} busca={busca} />}
 
       <Lista />
       </View>
@@ -90,7 +102,7 @@ const Card = ({ imagem, nome, preco, onAdd }) => {
 };
 
 // Componente para exibir os produtos
-const Doces = ({ onAddCarrinho }) => {
+const Doces = ({ onAddCarrinho, busca }) => {
   const produtos = [
     { nome: "Cupcake", preco: "R$ 5,00", imagem: "https://images.pexels.com/photos/1055270/pexels-photo-1055270.jpeg" },
     { nome: "Donuts", preco: "R$ 4,00", imagem: "https://images.pexels.com/photos/4686962/pexels-photo-4686962.jpeg" },
@@ -99,16 +111,18 @@ const Doces = ({ onAddCarrinho }) => {
     { nome: "Fatia de bolo", preco: "R$ 10,00", imagem: "https://images.pexels.com/photos/18160775/pexels-photo-18160775.jpeg" }
   ];
 
+  const produtosFiltrados = produtos.filter(produto => produto.nome.toLowerCase().includes(busca.toLowerCase()));
+
   return (
-    <View style={{ alignItems: "center", justifyContent: "center" }}>
-      {produtos.map((item, index) => (
-        <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
+    <View style={{ alignItems: "center" }}>
+      {produtosFiltrados.map((item, index) => (
+        <Card key={index} {...item} onAdd={() => onAddCarrinho(item)} />
       ))}
     </View>
   );
 };
 
-const Salgados = ({ }) => {
+const Salgados = ({ onAddCarrinho, busca }) => {
   const produtos = [
     { nome: "Coxinha", preco: "R$ 5,00", imagem: "https://img.freepik.com/fotos-gratis/comida-brasileira-no-prato-alto_23-2148875245.jpg?ga=GA1.1.1641917442.1743164069&semt=ais_hybrid"},
     { nome: "Enroladinho", preco: "R$ 10,00", imagem: "https://img.freepik.com/fotos-gratis/vista-de-cima-pulseiras-deliciosas-e-doces-com-recheio-na-mesa-de-madeira-cinza-doce-com-acucar-pastelaria-cha_140725-30998.jpg?ga=GA1.1.1641917442.1743164069&semt=ais_hybrid"},
@@ -117,10 +131,12 @@ const Salgados = ({ }) => {
     { nome: "Esfirra", preco: "R$ 6,00", imagem: "https://img.freepik.com/fotos-gratis/rissois-com-batatas-e-cogumelos_2829-11547.jpg?ga=GA1.1.1641917442.1743164069&semt=ais_hybrid"},
   ]
 
+  const produtosFiltrados = produtos.filter(produto => produto.nome.toLowerCase().includes(busca.toLowerCase()));
+
   return (
-    <View style={{ alignItems: "center", justifyContent: "center" }}>
-      {produtos.map((item, index) => (
-        <Card key={index} imagem={item.imagem} nome={item.nome} preco={item.preco} onAdd={() => onAddCarrinho(item)} />
+    <View style={{ alignItems: "center" }}>
+      {produtosFiltrados.map((item, index) => (
+        <Card key={index} {...item} onAdd={() => onAddCarrinho(item)} />
       ))}
     </View>
   );
@@ -329,6 +345,9 @@ const styles = StyleSheet.create({
     color: '#B03052',
     fontFamily: 'JostRegular',
   },
+  inputFocus: {
+    borderColor: '#B03052'
+  }
 });
 
 export default App;
