@@ -81,14 +81,17 @@ const App = () => {
             onValueChange={() => setMostrarSalgados(!mostrarSalgados)}
           />
           <Text style={styles.textoSwitch}>Salgados</Text>
-
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Ionicons style={styles.icone} name="bag-sharp" size={24} color='#B03052' />
-      </TouchableOpacity>
         </View>
 
-        <Modal visible={modalVisible} animationType="fade" transparent={true}>
-          <View style={styles.modalContainer}>
+
+        {/* Ícone de carrinho de compras*/}
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <Ionicons style={styles.iconeCarrinho} name="bag-sharp" size={24} color='#B03052' />
+      </TouchableOpacity>
+
+      {/* Modal do carrinho de compras*/}
+        <Modal visible={modalVisible} animationType="fade" transparent={true}> 
+          <View style={styles.modalContainerCarrinho}>
           <Text style={styles.tituloModal}>Carrinho</Text>
           <Text>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
           <Slider
@@ -102,13 +105,39 @@ const App = () => {
           maximumTrackTintColor="#CCCCCC"
           thumbTintColor="#383434"
           />
+        <TouchableOpacity onPress={() => setModalVisible(false)}>
+        <Text>Fechar</Text>
+        </TouchableOpacity>
+          </View>
+        </Modal>
 
 
-    <TouchableOpacity onPress={() => setModalVisible(false)}>
-      <Text>Fechar</Text>
-    </TouchableOpacity>
-  </View>
-</Modal>
+        {/* Ícone do login*/}
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <Ionicons style={styles.iconeLogin} name="person" size={24} color='#B03052' />
+      </TouchableOpacity>
+
+        {/* Modal do login*/}
+        <Modal visible={modalVisible} animationType="fade" transparent={true}> 
+          <View style={styles.modalContainerLogin}>
+          <Text style={styles.tituloModal}>Login</Text>
+          <Text>O quanto você nos indicaria? {itemsPerPage} ♡</Text>
+          <Slider
+          style={{ width: 250, height: 40 }}
+          minimumValue={1}
+          maximumValue={10}
+          step={1}
+          value={itemsPerPage}
+          onValueChange={setItemsPerPage} 
+          minimumTrackTintColor="#383434"
+          maximumTrackTintColor="#CCCCCC"
+          thumbTintColor="#383434"
+          />
+        <TouchableOpacity onPress={() => setModalVisible(false)}>
+        <Text>Fechar</Text>
+        </TouchableOpacity>
+          </View>
+        </Modal>
 
         {mostrarSalgados ? <Salgados onAddCarrinho={adicionarAoCarrinho} busca={busca} /> : <Doces onAddCarrinho={adicionarAoCarrinho} busca={busca} />}
 
@@ -379,9 +408,16 @@ const styles = StyleSheet.create({
   inputFocus: {
     borderColor: '#B03052'
   },
-  modalContainer: {
+  modalContainerCarrinho: { 
     flex: 1,
     backgroundColor: "red",
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: 'center',
+  },
+  modalContainerLogin: {
+    flex: 1,
+    backgroundColor: "yellow",
     borderRadius: 30,
     alignItems: "center",
     justifyContent: 'center',
@@ -392,11 +428,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
-  icone: {
+  iconeCarrinho: {
     position: 'absolute',
-    top: -280,
-    left: 10,
+    top: -290,
+    left: 120,
   },
+  iconeLogin: {
+    position: 'absolute',
+    top: -290,
+    right: 120
+  }
 });
 
 export default App;
