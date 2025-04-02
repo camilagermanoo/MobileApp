@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, Image, ScrollView, FlatList, TouchableOpacity, StyleSheet, TextInput, Switch} from 'react-native';
+import { View, Text, Image, ScrollView, FlatList, TouchableOpacity, StyleSheet, TextInput, Switch, Modal} from 'react-native';
 import { useFonts } from 'expo-font';
 import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Jost_400Regular } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons' // icones
+import Slider from '@react-native-community/slider';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -19,9 +20,12 @@ const App = () => {
   const [mostrarSalgados, setMostrarSalgados] = useState(false);
   const [busca, setBusca] = useState('');
   const [borderFocus, setBorderFocus] = useState(false); // Estado para controlar o foco do input para a borda não ficar preta
+  const [modalVisible, setModalVisible] = useState(false);
+  const [itemsPerPage, setItemsPerPage] = useState(1);
+
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   }
 
   const entrar = () => {
@@ -68,7 +72,7 @@ const App = () => {
           placeholder ="Procure seu item"
       />
       </View>
-     
+    
       {/* Switch para trocar de doce para salgado*/}
       <View style={styles.switchContainer}>
           <Text style={styles.textoSwitch}>Doces</Text>
@@ -77,7 +81,34 @@ const App = () => {
             onValueChange={() => setMostrarSalgados(!mostrarSalgados)}
           />
           <Text style={styles.textoSwitch}>Salgados</Text>
+
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <Ionicons style={styles.icone} name="bag-sharp" size={24} color='#B03052' />
+      </TouchableOpacity>
         </View>
+
+        <Modal visible={modalVisible} animationType="fade" transparent={true}>
+          <View style={styles.modalContainer}>
+          <Text style={styles.tituloModal}>Carrinho</Text>
+          <Text>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
+          <Slider
+          style={{ width: 250, height: 40 }}
+          minimumValue={1}
+          maximumValue={10}
+          step={1}
+          value={itemsPerPage}
+          onValueChange={setItemsPerPage} 
+          minimumTrackTintColor="#383434"
+          maximumTrackTintColor="#CCCCCC"
+          thumbTintColor="#383434"
+          />
+
+
+    <TouchableOpacity onPress={() => setModalVisible(false)}>
+      <Text>Fechar</Text>
+    </TouchableOpacity>
+  </View>
+</Modal>
 
         {mostrarSalgados ? <Salgados onAddCarrinho={adicionarAoCarrinho} busca={busca} /> : <Doces onAddCarrinho={adicionarAoCarrinho} busca={busca} />}
 
@@ -347,7 +378,25 @@ const styles = StyleSheet.create({
   },
   inputFocus: {
     borderColor: '#B03052'
-  }
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "red",
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: 'center',
+  },
+  tituloModal: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  icone: {
+    position: 'absolute',
+    top: -280,
+    left: 10,
+  },
 });
 
 export default App;
