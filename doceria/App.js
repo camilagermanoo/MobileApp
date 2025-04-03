@@ -6,7 +6,7 @@ import { Jost_400Regular } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons' // icones
 import Slider from '@react-native-community/slider';
-//import {Picker} from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -124,7 +124,17 @@ const calcularTotal = () => {
       {carrinho.length > 0 && <Text style={styles.textoTotalCarrinho}>Total: R$ {calcularTotal()}</Text>}
 
       {/* Escolher forma de pagamento */}
-      {/*<Text style={styles.textoCarrinho}>Escolher forma de pagamento:</Text>
+      <Text style={styles.textoCarrinho}>Forma de Pagamento:</Text>
+          <Picker
+            selectedValue={formaPagamento}
+            style={styles.pickerPagamento}
+            onValueChange={(itemValue) => setFormaPagamento(itemValue)}
+          >
+            <Picker.Item label="Crédito" value="Cartão de Crédito" />
+            <Picker.Item label="Débito" value="Cartão de Débito" />
+            <Picker.Item label="Pix" value="Pix" />
+            <Picker.Item label="Dinheiro" value="Dinheiro" />
+          </Picker>
 
       {/* Imagem forma de pagamento */}
       <Image source={require('./assets/imagemPagamento.png')} style={styles.imagemModalCarrinho} />
@@ -136,7 +146,6 @@ const calcularTotal = () => {
     </View>
   </View>
 </Modal>
-
 
         {/* Ícone do login*/}
         <TouchableOpacity onPress={() => setModalVisibleLogin(true)}>
@@ -345,15 +354,14 @@ const styles = StyleSheet.create({
   tituloProdutos: { 
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#c2516f',
+    color: '#C2516F',
     marginTop: 10,
     fontFamily: 'JostRegular',
     textDecorationLine: 'underline',
-
   },
   descricaoProdutos: {
     fontSize: 14,
-    color: '#c2516f',
+    color: '#C2516F',
     marginTop: 5
   },
   container: {
@@ -382,7 +390,7 @@ const styles = StyleSheet.create({
   },
   nomeLista: {
     fontSize: 16,
-    color: '#c2516f',
+    color: '#C2516F',
     textAlign: "center",
     fontFamily: 'JostRegular',
     textDecorationLine: 'underline',
@@ -395,7 +403,7 @@ const styles = StyleSheet.create({
   },
   descricaoFuncionario: {
     fontSize: 14,
-    color: '#c2516f',
+    color: '#C2516F',
     textAlign: 'center',
     fontFamily: 'JostRegular',
     marginTop: 5,
@@ -436,40 +444,32 @@ const styles = StyleSheet.create({
     borderColor: '#B03052'
   },
   modalContainerCarrinho: { 
-    width: 300,
-    height: 450,
-    flex: 1,
-    backgroundColor: '#FFEDFA',
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: [{ translateX: -150 }, { translateY: -200 }],
-    borderWidth: 5,
-    borderColor: '#c2516f'
+  backgroundColor: '#FFEDFA',
+  padding: 20,
+  borderRadius: 10,
+  width: '80%',
+  alignSelf: 'center',
+  //alignItems: 'stretch',
+  justifyContent: 'flex-start', // Mantém o título no topo
+  maxHeight: '80%',
   },
   imagemModalCarrinho: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
     resizeMode: "contain", 
-    marginBottom: 20,
+    marginTop: 50,
+    alignSelf: 'center'
   },
   modalContainerLogin: {
-    width: 300,
-    height: 450,
-    flex: 1,
+    width: '90%',
+    height: '90%',
+    padding: 20,
     backgroundColor: '#FFEDFA',
     borderRadius: 30,
     alignItems: "center",
     justifyContent: 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: [{ translateX: -150 }, { translateY: -200 }],
     borderWidth: 5,
-    borderColor: '#c2516f'
+    borderColor: '#C2516F'
   },
   botaoFechar: {
     width: 200,
@@ -479,6 +479,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     marginTop: 20,
+    alignSelf: 'center'
   },
   textoBotaoFechar: {
     color: 'white',
@@ -487,11 +488,13 @@ const styles = StyleSheet.create({
     fontFamily: 'JostRegular',
   },
   tituloModal: {
-    fontSize: 30,
-    textAlign: "center",
-    marginBottom: 20,
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
+    alignSelf: 'center',
     fontFamily: 'PacificoRegular',
-    color:'#B03052',
+    color: '#B03052'
   },
   textoConteudoModal: {
     color: 'black',
@@ -515,6 +518,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  itemCarrinho: {
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   textoItemCarrinho: {
     color: 'black',
     textAlign: 'center',
@@ -525,13 +533,22 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     fontSize: 16,
-    fontFamily: 'JostRegular'
+    fontFamily: 'JostRegular',
+    marginTop: 20,
   },
   textoCarrinho: {
     color: 'black',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: 'JostRegular'
+  },
+  pickerPagamento: {
+   height: 30,
+   width: 150,
+   marginBottom: 10, 
+   backgroundColor: '#F2F2F2',
+   marginTop: 10,
+   alignSelf: 'center',
   },
 });
 
