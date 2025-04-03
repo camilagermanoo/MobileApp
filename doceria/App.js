@@ -6,6 +6,7 @@ import { Jost_400Regular } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
 import { Ionicons } from '@expo/vector-icons' // icones
 import Slider from '@react-native-community/slider';
+//import {Picker} from '@react-native-picker/picker';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -22,6 +23,7 @@ const App = () => {
   const [borderFocus, setBorderFocus] = useState(false);
   const [modalVisibleCarrinho, setModalVisibleCarrinho] = useState(false); // Modal do carrinho
   const [modalVisibleLogin, setModalVisibleLogin] = useState(false); // Modal do login
+  const [formaPagamento, setFormaPagamento] = useState("debito");
   const [itemsPerPage, setItemsPerPage] = useState(1);
 
   {/* Calcular total do carrinho */}
@@ -98,27 +100,42 @@ const calcularTotal = () => {
       </TouchableOpacity>
 
       {/* Modal do carrinho de compras*/}
-        <Modal visible={modalVisibleCarrinho} animationType="fade" transparent={true}>
-        <View style={styles.modalBackground} />
-        <View style={styles.modalContainerCarrinho}>
-        <Text style={styles.tituloModal}>Carrinho</Text>
-        {carrinho.length > 0 ? (
-        <FlatList data={carrinho} keyExtractor={(item, index) => index.toString()} renderItem={({ item }) => (
-          <View>
-            <Image source={{ uri: item.imagem }} style={styles.imagemCarrinho} />
-            <Text style={styles.textoItemCarrinho}>{item.nome} - {item.preco}</Text>
-          </View>
-        )}/> ) : (
-      <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
-    )}
-        {carrinho.length > 0 && <Text style={styles.textoTotalCarrinho}>Total: R$ {calcularTotal()}</Text>}
-        <Text>Escolher forma de pagamento:</Text>
-        <Image source={require('./assets/imagemPagamento.png')} style={styles.imagemModalCarrinho} />
-        <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleCarrinho(false)}>
+      <Modal visible={modalVisibleCarrinho} animationType="fade" transparent={true}>
+  <View style={styles.modalBackground}>
+    <View style={styles.modalContainerCarrinho}>
+      <Text style={styles.tituloModal}>Carrinho</Text>
+
+      {/* Lista de itens no carrinho */}
+      {carrinho.length > 0 ? (
+        <FlatList
+          data={carrinho}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.itemCarrinho}>
+              <Text style={styles.textoItemCarrinho}>{item.nome} - R$ {item.preco}</Text>
+            </View>
+          )}
+        />
+      ) : (
+        <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
+      )}
+
+      {/* Exibir total se houver itens no carrinho */}
+      {carrinho.length > 0 && <Text style={styles.textoTotalCarrinho}>Total: R$ {calcularTotal()}</Text>}
+
+      {/* Escolher forma de pagamento */}
+      {/*<Text style={styles.textoCarrinho}>Escolher forma de pagamento:</Text>
+
+      {/* Imagem forma de pagamento */}
+      <Image source={require('./assets/imagemPagamento.png')} style={styles.imagemModalCarrinho} />
+
+      {/* Botão para fechar o modal */}
+      <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleCarrinho(false)}>
         <Text style={styles.textoBotaoFechar}>Fechar</Text>
-        </TouchableOpacity>
-          </View>
-        </Modal>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
 
 
         {/* Ícone do login*/}
@@ -509,7 +526,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontFamily: 'JostRegular'
-  }
+  },
+  textoCarrinho: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: 'JostRegular'
+  },
 });
 
 export default App;
