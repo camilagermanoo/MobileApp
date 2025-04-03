@@ -92,20 +92,10 @@ const App = () => {
 
       {/* Modal do carrinho de compras*/}
         <Modal visible={modalVisibleCarrinho} animationType="fade" transparent={true}> 
+          <View style={styles.modalBackground}/>
           <View style={styles.modalContainerCarrinho}>
           <Text style={styles.tituloModal}>Carrinho</Text>
-          <Text>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
-          <Slider
-          style={{ width: 250, height: 40 }}
-          minimumValue={1}
-          maximumValue={10}
-          step={1}
-          value={itemsPerPage}
-          onValueChange={setItemsPerPage} 
-          minimumTrackTintColor="#383434"
-          maximumTrackTintColor="#CCCCCC"
-          thumbTintColor="#383434"
-          />
+          <Image source={require('./assets/imagemPagamento.png')} style = {styles.imagemModalCarrinho}/>
         <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleCarrinho(false)}>
         <Text style={styles.textoBotaoFechar}>Fechar</Text>
         </TouchableOpacity>
@@ -120,9 +110,10 @@ const App = () => {
 
         {/* Modal do login*/}
         <Modal visible={modalVisibleLogin} animationType="fade" transparent={true}> 
+          <View style={styles.modalBackground}/>
           <View style={styles.modalContainerLogin}>
-          <Text style={styles.tituloModal}>Login</Text>
-          <Text>O quanto você nos indicaria? {itemsPerPage} ♡</Text>
+          <Text style={styles.tituloModal}>Carrinho</Text>
+          <Text style={styles.textoConteudoModal}>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
           <Slider
           style={{ width: 250, height: 40 }}
           minimumValue={1}
@@ -134,7 +125,7 @@ const App = () => {
           maximumTrackTintColor="#CCCCCC"
           thumbTintColor="#383434"
           />
-        <TouchableOpacity onPress={() => setModalVisibleLogin(false)}>
+        <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleLogin(false)}>
         <Text style={styles.textoBotaoFechar}>Fechar</Text>
         </TouchableOpacity>
           </View>
@@ -410,18 +401,40 @@ const styles = StyleSheet.create({
     borderColor: '#B03052'
   },
   modalContainerCarrinho: { 
+    width: 300,
+    height: 450,
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: '#FFEDFA',
     borderRadius: 30,
     alignItems: "center",
     justifyContent: 'center',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: [{ translateX: -150 }, { translateY: -200 }],
+    borderWidth: 5,
+    borderColor: '#c2516f'
+  },
+  imagemModalCarrinho: {
+    width: 100,
+    height: 100,
+    resizeMode: "contain", 
+    marginBottom: 20,
   },
   modalContainerLogin: {
+    width: 300,
+    height: 450,
     flex: 1,
-    backgroundColor: "yellow",
+    backgroundColor: '#FFEDFA',
     borderRadius: 30,
     alignItems: "center",
     justifyContent: 'center',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: [{ translateX: -150 }, { translateY: -200 }],
+    borderWidth: 5,
+    borderColor: '#c2516f'
   },
   botaoFechar: {
     width: 200,
@@ -439,10 +452,17 @@ const styles = StyleSheet.create({
     fontFamily: 'JostRegular',
   },
   tituloModal: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 30,
     textAlign: "center",
     marginBottom: 20,
+    fontFamily: 'PacificoRegular',
+    color:'#B03052',
+  },
+  textoConteudoModal: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: 'JostRegular',
   },
   iconeCarrinho: {
     position: 'absolute',
@@ -453,7 +473,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -290,
     right: 120
-  }
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    alignItems: "center",
+    justifyContent: "center",
+},
 });
 
 export default App;
