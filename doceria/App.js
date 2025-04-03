@@ -19,11 +19,18 @@ const App = () => {
   const [corTexto, setCorTexto] = useState(''); 
   const [mostrarSalgados, setMostrarSalgados] = useState(false);
   const [busca, setBusca] = useState('');
-  const [borderFocus, setBorderFocus] = useState(false); // Estado para controlar o foco do input para a borda não ficar preta
+  const [borderFocus, setBorderFocus] = useState(false);
   const [modalVisibleCarrinho, setModalVisibleCarrinho] = useState(false); // Modal do carrinho
   const [modalVisibleLogin, setModalVisibleLogin] = useState(false); // Modal do login
   const [itemsPerPage, setItemsPerPage] = useState(1);
 
+  {/* Calcular total do carrinho */}
+const calcularTotal = () => {
+  return carrinho.reduce((total, item) => {
+    const precoNumerico = parseFloat(item.preco.replace("R$", "").replace(",", "."));
+    return total + precoNumerico;
+  }, 0).toFixed(2);
+}
 
   if (!fontsLoaded) {
     return <AppLoading />
@@ -91,11 +98,22 @@ const App = () => {
       </TouchableOpacity>
 
       {/* Modal do carrinho de compras*/}
-        <Modal visible={modalVisibleCarrinho} animationType="fade" transparent={true}> 
-          <View style={styles.modalBackground}/>
-          <View style={styles.modalContainerCarrinho}>
-          <Text style={styles.tituloModal}>Carrinho</Text>
-          <Image source={require('./assets/imagemPagamento.png')} style = {styles.imagemModalCarrinho}/>
+        <Modal visible={modalVisibleCarrinho} animationType="fade" transparent={true}>
+        <View style={styles.modalBackground} />
+        <View style={styles.modalContainerCarrinho}>
+        <Text style={styles.tituloModal}>Carrinho</Text>
+        {carrinho.length > 0 ? (
+        <FlatList data={carrinho} keyExtractor={(item, index) => index.toString()} renderItem={({ item }) => (
+          <View>
+            <Image source={{ uri: item.imagem }} style={styles.imagemCarrinho} />
+            <Text style={styles.textoItemCarrinho}>{item.nome} - {item.preco}</Text>
+          </View>
+        )}/> ) : (
+      <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
+    )}
+        {carrinho.length > 0 && <Text style={styles.textoTotalCarrinho}>Total: R$ {calcularTotal()}</Text>}
+        <Text>Escolher forma de pagamento:</Text>
+        <Image source={require('./assets/imagemPagamento.png')} style={styles.imagemModalCarrinho} />
         <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleCarrinho(false)}>
         <Text style={styles.textoBotaoFechar}>Fechar</Text>
         </TouchableOpacity>
@@ -416,8 +434,8 @@ const styles = StyleSheet.create({
     borderColor: '#c2516f'
   },
   imagemModalCarrinho: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     resizeMode: "contain", 
     marginBottom: 20,
   },
@@ -479,7 +497,19 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
     alignItems: "center",
     justifyContent: "center",
-},
+  },
+  textoItemCarrinho: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: 'JostRegular',
+  },
+  textoTotalCarrinho: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: 'JostRegular'
+  }
 });
 
 export default App;
