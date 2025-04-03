@@ -154,8 +154,8 @@ const calcularTotal = () => {
 
         {/* Modal do login*/}
         <Modal visible={modalVisibleLogin} animationType="fade" transparent={true}> 
-          <View style={styles.modalBackground}/>
-          <View style={styles.modalContainerLogin}>
+  <View style={styles.modalBackground}/>
+    <View style={styles.modalContainerLogin}>
           <Text style={styles.tituloModal}>Carrinho</Text>
           <Text style={styles.textoConteudoModal}>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
           <Slider
@@ -444,14 +444,13 @@ const styles = StyleSheet.create({
     borderColor: '#B03052'
   },
   modalContainerCarrinho: { 
-  backgroundColor: '#FFEDFA',
-  padding: 20,
-  borderRadius: 10,
-  width: '80%',
-  alignSelf: 'center',
-  //alignItems: 'stretch',
-  justifyContent: 'flex-start', // Mantém o título no topo
-  maxHeight: '80%',
+    backgroundColor: '#FFEDFA',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    alignSelf: 'center',
+    justifyContent: 'flex-start', 
+    maxHeight: '80%',
   },
   imagemModalCarrinho: {
     width: 200,
@@ -461,15 +460,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   modalContainerLogin: {
-    width: '90%',
-    height: '90%',
-    padding: 20,
     backgroundColor: '#FFEDFA',
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: 'center',
-    borderWidth: 5,
-    borderColor: '#C2516F'
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    alignSelf: 'center',
+    justifyContent: 'flex-start', 
+    maxHeight: '80%',
   },
   botaoFechar: {
     width: 200,
@@ -488,7 +485,7 @@ const styles = StyleSheet.create({
     fontFamily: 'JostRegular',
   },
   tituloModal: {
-    fontSize: 22,
+    fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
