@@ -20,7 +20,8 @@ const App = () => {
   const [mostrarSalgados, setMostrarSalgados] = useState(false);
   const [busca, setBusca] = useState('');
   const [borderFocus, setBorderFocus] = useState(false); // Estado para controlar o foco do input para a borda não ficar preta
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleCarrinho, setModalVisibleCarrinho] = useState(false); // Modal do carrinho
+  const [modalVisibleLogin, setModalVisibleLogin] = useState(false); // Modal do login
   const [itemsPerPage, setItemsPerPage] = useState(1);
 
 
@@ -85,12 +86,12 @@ const App = () => {
 
 
         {/* Ícone de carrinho de compras*/}
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <TouchableOpacity onPress={() => setModalVisibleCarrinho(true)}>
         <Ionicons style={styles.iconeCarrinho} name="bag-sharp" size={24} color='#B03052' />
       </TouchableOpacity>
 
       {/* Modal do carrinho de compras*/}
-        <Modal visible={modalVisible} animationType="fade" transparent={true}> 
+        <Modal visible={modalVisibleCarrinho} animationType="fade" transparent={true}> 
           <View style={styles.modalContainerCarrinho}>
           <Text style={styles.tituloModal}>Carrinho</Text>
           <Text>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
@@ -105,20 +106,20 @@ const App = () => {
           maximumTrackTintColor="#CCCCCC"
           thumbTintColor="#383434"
           />
-        <TouchableOpacity onPress={() => setModalVisible(false)}>
-        <Text>Fechar</Text>
+        <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleCarrinho(false)}>
+        <Text style={styles.textoBotaoFechar}>Fechar</Text>
         </TouchableOpacity>
           </View>
         </Modal>
 
 
         {/* Ícone do login*/}
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <TouchableOpacity onPress={() => setModalVisibleLogin(true)}>
         <Ionicons style={styles.iconeLogin} name="person" size={24} color='#B03052' />
       </TouchableOpacity>
 
         {/* Modal do login*/}
-        <Modal visible={modalVisible} animationType="fade" transparent={true}> 
+        <Modal visible={modalVisibleLogin} animationType="fade" transparent={true}> 
           <View style={styles.modalContainerLogin}>
           <Text style={styles.tituloModal}>Login</Text>
           <Text>O quanto você nos indicaria? {itemsPerPage} ♡</Text>
@@ -133,8 +134,8 @@ const App = () => {
           maximumTrackTintColor="#CCCCCC"
           thumbTintColor="#383434"
           />
-        <TouchableOpacity onPress={() => setModalVisible(false)}>
-        <Text>Fechar</Text>
+        <TouchableOpacity onPress={() => setModalVisibleLogin(false)}>
+        <Text style={styles.textoBotaoFechar}>Fechar</Text>
         </TouchableOpacity>
           </View>
         </Modal>
@@ -421,6 +422,21 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
     justifyContent: 'center',
+  },
+  botaoFechar: {
+    width: 200,
+    backgroundColor: '#B03052',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  textoBotaoFechar: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: 'JostRegular',
   },
   tituloModal: {
     fontSize: 24,
