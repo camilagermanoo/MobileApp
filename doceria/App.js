@@ -48,8 +48,7 @@ const calcularTotal = () => {
   };
 
   const adicionarAoCarrinho = (produto) => {
-    setCarrinho([...carrinho, produto]);
-    console.log("Produto adicionado:", produto); 
+    setCarrinho((prevCarrinho) => [...prevCarrinho, produto]);
   };
 
   return (
@@ -68,7 +67,7 @@ const calcularTotal = () => {
         onBlur={() => setBorderFocus(false)}
       />
 
-      {/* Botão de entrar */}
+      {/* Botão de entrar depois de por o nome*/}
       <TouchableOpacity style={styles.botaoEntrar} onPress={entrar}>
         <Text style={styles.textoBotaoEntrar}>Entrar</Text>
       </TouchableOpacity>
@@ -107,18 +106,14 @@ const calcularTotal = () => {
 
       {/* Lista de itens no carrinho */}
       {carrinho.length > 0 ? (
-        <FlatList
-          data={carrinho}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.itemCarrinho}>
-              <Text style={styles.textoItemCarrinho}>{item.nome} - R$ {item.preco}</Text>
-            </View>
-          )}
-        />
-      ) : (
-        <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
-      )}
+         <View style={{borderWidth: 2, borderColor:'#DEDEDE', borderRadius: 5}}>
+        <FlatList data={carrinho} keyExtractor={(item, index) => index.toString()} renderItem={({ item }) => (
+          <View style={styles.itemCarrinho}>
+            <Text style={styles.textoItemCarrinho}>{item.nome} - {item.preco}</Text>
+          </View>
+        )}/> </View>) : (
+      <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
+    )}
 
       {/* Exibir total se houver itens no carrinho */}
       {carrinho.length > 0 && <Text style={styles.textoTotalCarrinho}>Total: R$ {calcularTotal()}</Text>}
@@ -453,10 +448,9 @@ const styles = StyleSheet.create({
     maxHeight: '80%',
   },
   imagemModalCarrinho: {
-    width: 200,
-    height: 200,
+    width: 130,
+    height: 130,
     resizeMode: "contain", 
-    marginTop: 50,
     alignSelf: 'center'
   },
   modalContainerLogin: {
@@ -516,9 +510,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   itemCarrinho: {
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textoItemCarrinho: {
     color: 'black',
@@ -529,14 +523,13 @@ const styles = StyleSheet.create({
   textoTotalCarrinho: {
     color: 'black',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: 'JostRegular',
-    marginTop: 20,
   },
   textoCarrinho: {
     color: 'black',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'JostRegular'
   },
   pickerPagamento: {
