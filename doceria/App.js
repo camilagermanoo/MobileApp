@@ -529,12 +529,12 @@ const styles = StyleSheet.create({
   },
   iconeCarrinho: {
     position: 'absolute',
-    top: -290,
+    top: -260,
     left: 120,
   },
   iconeLogin: {
     position: 'absolute',
-    top: -290,
+    top: -260,
     right: 120
   },
   modalBackground: {
@@ -603,8 +603,8 @@ const styles = StyleSheet.create({
     height: 40,
   },
   switchContainerIdade: {
-    flexDirection: 'column', // Organiza os itens verticalmente
-    alignItems: 'center', // Centraliza os itens dentro do container
+    flexDirection: 'column', 
+    alignItems: 'center', 
     marginTop: 10,
   },
   switchContainer: {
