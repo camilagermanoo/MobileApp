@@ -25,6 +25,8 @@ const App = () => {
   const [modalVisibleLogin, setModalVisibleLogin] = useState(false); // Modal do login
   const [formaPagamento, setFormaPagamento] = useState("debito");
   const [itemsPerPage, setItemsPerPage] = useState(1);
+  const [itemsPerPage2, setItemsPerPage2] = useState(1);
+  const [isMaior, setIsMaior] = useState(false);
 
   {/* Calcular total do carrinho */}
 const calcularTotal = () => {
@@ -63,7 +65,7 @@ const calcularTotal = () => {
         placeholder="Digite seu nome"
         onChangeText={setNome}
         value={nome}
-        onFocus={() => setBorderFocus(true)} // Altera o estado para indicar que o campo está em foco
+        onFocus={() => setBorderFocus(true)}
         onBlur={() => setBorderFocus(false)}
       />
 
@@ -74,13 +76,6 @@ const calcularTotal = () => {
 
       {/* Mensagem de boas-vindas */}
       {mensagem !== '' && <Text style={[styles.mensagemBoasVindas, { color: corTexto }]}>{mensagem}</Text>}
-
-      {/* Campo de busca de produto */}
-      <View>
-        <TextInput
-          placeholder ="Procure seu item"
-      />
-      </View>
     
       {/* Switch para trocar de doce para salgado*/}
       <View style={styles.switchContainer}>
@@ -90,87 +85,126 @@ const calcularTotal = () => {
             onValueChange={() => setMostrarSalgados(!mostrarSalgados)}
           />
           <Text style={styles.textoSwitch}>Salgados</Text>
-        </View>
+      </View>
 
-
-        {/* Ícone de carrinho de compras*/}
+        {/* Ícone de carrinho de compras para abrir modal*/}
         <TouchableOpacity onPress={() => setModalVisibleCarrinho(true)}>
         <Ionicons style={styles.iconeCarrinho} name="bag-sharp" size={24} color='#B03052' />
       </TouchableOpacity>
 
       {/* Modal do carrinho de compras*/}
       <Modal visible={modalVisibleCarrinho} animationType="fade" transparent={true}>
-  <View style={styles.modalBackground}>
-    <View style={styles.modalContainerCarrinho}>
-      <Text style={styles.tituloModal}>Carrinho</Text>
+        <View style={styles.modalBackground}>
+        <View style={styles.modalContainerCarrinho}>
+          <Text style={styles.tituloModal}>Carrinho</Text>
 
       {/* Lista de itens no carrinho */}
       {carrinho.length > 0 ? (
-         <View style={{borderWidth: 2, borderColor:'#DEDEDE', borderRadius: 5}}>
-        <FlatList data={carrinho} keyExtractor={(item, index) => index.toString()} renderItem={({ item }) => (
-          <View style={styles.itemCarrinho}>
-            <Text style={styles.textoItemCarrinho}>{item.nome} - {item.preco}</Text>
-          </View>
+        <View style={{borderWidth: 2, borderColor:'#DEDEDE', borderRadius: 5}}>
+            <FlatList data={carrinho} keyExtractor={(item, index) => index.toString()} renderItem={({ item }) => (
+        <View style={styles.itemCarrinho}>
+          <Text style={styles.textoItemCarrinho}>{item.nome} - {item.preco}</Text>
+        </View>
         )}/> </View>) : (
       <Text style={styles.textoCarrinho}>Seu carrinho está vazio.</Text>
-    )}
+        )}
 
-      {/* Exibir total se houver itens no carrinho */}
+      {/* Texto que exibe o preço total */}
       {carrinho.length > 0 && <Text style={styles.textoTotalCarrinho}>Total: R$ {calcularTotal()}</Text>}
 
-      {/* Escolher forma de pagamento */}
+      {/* Picker pra escolher forma de pagamento */}
       <Text style={styles.textoCarrinho}>Forma de Pagamento:</Text>
-          <Picker
-            selectedValue={formaPagamento}
-            style={styles.pickerPagamento}
-            onValueChange={(itemValue) => setFormaPagamento(itemValue)}
-          >
+          <Picker style={styles.pickerPagamento} selectedValue={formaPagamento} onValueChange={(itemValue) => setFormaPagamento(itemValue)}>
             <Picker.Item label="Crédito" value="Cartão de Crédito" />
             <Picker.Item label="Débito" value="Cartão de Débito" />
             <Picker.Item label="Pix" value="Pix" />
             <Picker.Item label="Dinheiro" value="Dinheiro" />
           </Picker>
 
-      {/* Imagem forma de pagamento */}
+      {/* Imagem do pagamento */}
       <Image source={require('./assets/imagemPagamento.png')} style={styles.imagemModalCarrinho} />
 
       {/* Botão para fechar o modal */}
       <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleCarrinho(false)}>
         <Text style={styles.textoBotaoFechar}>Fechar</Text>
       </TouchableOpacity>
+      </View>
     </View>
-  </View>
-</Modal>
+    </Modal>
 
-        {/* Ícone do login*/}
+        {/* Ícone do login para abrir modal*/}
         <TouchableOpacity onPress={() => setModalVisibleLogin(true)}>
-        <Ionicons style={styles.iconeLogin} name="person" size={24} color='#B03052' />
-      </TouchableOpacity>
-
-        {/* Modal do login*/}
-        <Modal visible={modalVisibleLogin} animationType="fade" transparent={true}> 
-  <View style={styles.modalBackground}/>
-    <View style={styles.modalContainerLogin}>
-          <Text style={styles.tituloModal}>Carrinho</Text>
-          <Text style={styles.textoConteudoModal}>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
-          <Slider
-          style={{ width: 250, height: 40 }}
-          minimumValue={1}
-          maximumValue={10}
-          step={1}
-          value={itemsPerPage}
-          onValueChange={setItemsPerPage} 
-          minimumTrackTintColor="#383434"
-          maximumTrackTintColor="#CCCCCC"
-          thumbTintColor="#383434"
-          />
-        <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleLogin(false)}>
-        <Text style={styles.textoBotaoFechar}>Fechar</Text>
+          <Ionicons style={styles.iconeLogin} name="person" size={24} color='#B03052' />
         </TouchableOpacity>
-          </View>
-        </Modal>
 
-        {mostrarSalgados ? <Salgados onAddCarrinho={adicionarAoCarrinho} busca={busca} /> : <Doces onAddCarrinho={adicionarAoCarrinho} busca={busca} />}
+      <Modal visible={modalVisibleLogin} animationType="fade" transparent={true}>
+        <View style={styles.modalBackground}>
+        <View style={styles.modalContainerLogin}>
+        <Text style={styles.tituloModal}>Cadastro</Text>
+        <Text style={styles.textoDescontoLogin}>Com cadastro em nosso aplicativo você ganha descontos!</Text>
+
+        <View style={styles.containerLogin}>
+        <Text style={styles.textoCarrinho}>Digite seu nome completo:</Text>
+        <TextInput style={styles.inputCadastro} placeholder="Nome"/>
+        <Text style={styles.textoCarrinho}>Digite seu email:</Text>
+        <TextInput style={styles.inputCadastro} placeholder="E-mail"/>
+        <Text style={styles.textoCarrinho}>Crie sua senha:</Text>
+        <TextInput style={styles.inputCadastro} placeholder="Senha"/>
+        </View>
+
+        <View styles={styles.containerSwitch2}>
+        <View style={styles.switchContainerIdade}>
+        <Text>Você é maior de idade?</Text>
+        <View style={styles.switchContainer}>
+        <Text>Não</Text>
+        <Switch value={isMaior}onValueChange={setIsMaior}/>
+        <Text>Sim</Text>
+        </View>
+        </View>
+        </View>
+
+        {/* Slider 1*/}
+        <Text style={styles.textoConteudoModal}>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
+        <View style={styles.containerSlider}>
+        <Slider
+        style={styles.slider}
+        minimumValue={1}
+        maximumValue={10}
+        step={1}
+        value={itemsPerPage}
+        onValueChange={setItemsPerPage} 
+        minimumTrackTintColor="#383434"
+        maximumTrackTintColor="#CCCCCC"
+        thumbTintColor="#383434"
+        />
+        </View>
+
+        {/* Slider 2*/}
+        <Text style={styles.textoConteudoModal}>O quanto você indicaria nossa loja? {itemsPerPage2} ☆</Text>
+        <View style={styles.containerSlider}>
+        <Slider
+        style={styles.slider}
+        minimumValue={1}
+        maximumValue={10}
+        step={1}
+        value={itemsPerPage2}
+        onValueChange={setItemsPerPage2} 
+        minimumTrackTintColor="#383434"
+        maximumTrackTintColor="#CCCCCC"
+        thumbTintColor="#383434"
+        />
+        </View>
+
+
+        {/* Botão para fechar o modal */}
+          <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleLogin(false)}>
+            <Text style={styles.textoBotaoFechar}>Fechar</Text>
+          </TouchableOpacity>
+        </View>
+        </View>
+      </Modal>
+
+    {mostrarSalgados ? <Salgados onAddCarrinho={adicionarAoCarrinho} busca={busca} /> : <Doces onAddCarrinho={adicionarAoCarrinho} busca={busca} />}
 
       <Lista />
       </View>
@@ -529,16 +563,59 @@ const styles = StyleSheet.create({
   textoCarrinho: {
     color: 'black',
     textAlign: 'center',
-    fontSize: 18,
-    fontFamily: 'JostRegular'
+    fontSize: 20,
+    fontFamily: 'JostRegular',
   },
   pickerPagamento: {
-   height: 30,
-   width: 150,
-   marginBottom: 10, 
-   backgroundColor: '#F2F2F2',
-   marginTop: 10,
-   alignSelf: 'center',
+  height: 30,
+  width: 150,
+  marginBottom: 10, 
+  backgroundColor: '#F2F2F2',
+  marginTop: 10,
+  alignSelf: 'center',
+  },
+  textoDescontoLogin: {
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: 'JostRegular',
+  },
+  inputCadastro: {
+    width: 200,
+    height: 40,
+    borderColor: '#B03052',
+    borderWidth: 3,
+    borderRadius: 7,
+    padding: 10,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  containerLogin: {
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  containerSlider: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+  },
+  slider: {
+    width: 250, 
+    height: 40,
+  },
+  switchContainerIdade: {
+    flexDirection: 'column', // Organiza os itens verticalmente
+    alignItems: 'center', // Centraliza os itens dentro do container
+    marginTop: 10,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  containerSwitch2: {
+    flex: 1,
+    justifyContent: 'center', // Centraliza verticalmente
+    alignItems: 'center',
   },
 });
 
