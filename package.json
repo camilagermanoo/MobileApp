@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "expo": "^52.0.40"
+    "@expo-google-fonts/poppins": "^0.3.1",
+    "expo": "^52.0.40",
+    "expo-font": "~13.0.4"
   }
 }

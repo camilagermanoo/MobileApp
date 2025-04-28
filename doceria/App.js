@@ -600,7 +600,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerSlider: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '80%',
