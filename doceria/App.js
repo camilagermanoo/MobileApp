@@ -21,8 +21,8 @@ const App = () => {
   const [mostrarSalgados, setMostrarSalgados] = useState(false);
   const [busca, setBusca] = useState('');
   const [borderFocus, setBorderFocus] = useState(false);
-  const [modalVisibleCarrinho, setModalVisibleCarrinho] = useState(false); // Modal do carrinho
-  const [modalVisibleLogin, setModalVisibleLogin] = useState(false); // Modal do login
+  const [modalVisibleCarrinho, setModalVisibleCarrinho] = useState(false);
+  const [modalVisibleLogin, setModalVisibleLogin] = useState(false);
   const [formaPagamento, setFormaPagamento] = useState("debito");
   const [itemsPerPage, setItemsPerPage] = useState(1);
   const [itemsPerPage2, setItemsPerPage2] = useState(1);
@@ -137,72 +137,58 @@ const calcularTotal = () => {
           <Ionicons style={styles.iconeLogin} name="person" size={24} color='#B03052' />
         </TouchableOpacity>
 
-      <Modal visible={modalVisibleLogin} animationType="fade" transparent={true}>
-        <View style={styles.modalBackground}>
-        <View style={styles.modalContainerLogin}>
-        <Text style={styles.tituloModal}>Cadastro</Text>
-        <Text style={styles.textoDescontoLogin}>Com cadastro em nosso aplicativo você ganha descontos!</Text>
+        <Modal visible={modalVisibleLogin} animationType="fade" transparent={true}>
+          <View style={styles.modalBackground}>
+          <View style={styles.modalContainerLogin}>
+      
+          <Text style={styles.tituloModal}>Cadastro</Text>
+          <Text style={styles.textoDescontoLogin}>Com cadastro em nosso aplicativo você ganha descontos!</Text>
 
-        <View style={styles.containerLogin}>
-        <Text style={styles.textoCarrinho}>Digite seu nome completo:</Text>
-        <TextInput style={styles.inputCadastro} placeholder="Nome"/>
-        <Text style={styles.textoCarrinho}>Digite seu email:</Text>
-        <TextInput style={styles.inputCadastro} placeholder="E-mail"/>
-        <Text style={styles.textoCarrinho}>Crie sua senha:</Text>
-        <TextInput style={styles.inputCadastro} placeholder="Senha"/>
-        </View>
+          <View style={styles.containerCampos}>
+          <Text style={styles.labelCampo}>Digite seu nome completo:</Text>
+          <TextInput style={styles.input} placeholder="Nome" placeholderTextColor="#A0A0A0" />
 
-        <View styles={styles.containerSwitch2}>
-        <View style={styles.switchContainerIdade}>
-        <Text>Você é maior de idade?</Text>
-        <View style={styles.switchContainer}>
-        <Text>Não</Text>
-        <Switch value={isMaior}onValueChange={setIsMaior}/>
-        <Text>Sim</Text>
-        </View>
-        </View>
-        </View>
+        <Text style={styles.labelCampo}>Digite seu email:</Text>
+        <TextInput style={styles.input} placeholder="E-mail" placeholderTextColor="#A0A0A0" />
 
-        {/* Slider 1*/}
-        <Text style={styles.textoConteudoModal}>O quanto você gostou do nosso aplicativo? {itemsPerPage} ♡</Text>
-        <View style={styles.containerSlider}>
+        <Text style={styles.labelCampo}>Crie sua senha:</Text>
+        <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#A0A0A0" secureTextEntry />
+      </View>
+
+      <View style={styles.containerSwitch}>
+        <Text style={styles.labelCampo}>Você é maior de idade?</Text>
+        <View style={styles.switchRow}>
+          <Text style={styles.switchLabel}>Não</Text>
+          <Switch value={isMaior} onValueChange={setIsMaior} trackColor={{ false: "#ccc", true: "#ff7faa" }} thumbColor={isMaior ? "#d6336c" : "#888"} />
+          <Text style={styles.switchLabel}>Sim</Text>
+        </View>
+      </View>
+
+      <Text style={styles.labelCampo}>O quanto você gostou do nosso aplicativo de 1 a 10?</Text>
+      <View style={styles.containerSlider}>
+        <Text style={styles.numeroSlider}>1</Text>
         <Slider
-        style={styles.slider}
-        minimumValue={1}
-        maximumValue={10}
-        step={1}
-        value={itemsPerPage}
-        onValueChange={setItemsPerPage} 
-        minimumTrackTintColor="#383434"
-        maximumTrackTintColor="#CCCCCC"
-        thumbTintColor="#383434"
+          style={styles.slider}
+          minimumValue={1}
+          maximumValue={10}
+          step={1}
+          value={itemsPerPage}
+          onValueChange={setItemsPerPage}
+          minimumTrackTintColor="#d6336c"
+          maximumTrackTintColor="#ccc"
+          thumbTintColor="#d6336c"
         />
-        </View>
+        <Text style={styles.numeroSlider}>10</Text>
+      </View>
 
-        {/* Slider 2*/}
-        <Text style={styles.textoConteudoModal}>O quanto você indicaria nossa loja? {itemsPerPage2} ☆</Text>
-        <View style={styles.containerSlider}>
-        <Slider
-        style={styles.slider}
-        minimumValue={1}
-        maximumValue={10}
-        step={1}
-        value={itemsPerPage2}
-        onValueChange={setItemsPerPage2} 
-        minimumTrackTintColor="#383434"
-        maximumTrackTintColor="#CCCCCC"
-        thumbTintColor="#383434"
-        />
-        </View>
+      {/* Botão para fechar o modal */}
+      <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleLogin(false)}>
+        <Text style={styles.textoBotaoFechar}>Fechar</Text>
+      </TouchableOpacity>
 
-
-        {/* Botão para fechar o modal */}
-          <TouchableOpacity style={styles.botaoFechar} onPress={() => setModalVisibleLogin(false)}>
-            <Text style={styles.textoBotaoFechar}>Fechar</Text>
-          </TouchableOpacity>
-        </View>
-        </View>
-      </Modal>
+    </View>
+  </View>
+</Modal>
 
     {mostrarSalgados ? <Salgados onAddCarrinho={adicionarAoCarrinho} busca={busca} /> : <Doces onAddCarrinho={adicionarAoCarrinho} busca={busca} />}
 
@@ -494,20 +480,23 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   modalContainerLogin: {
-    backgroundColor: '#FFEDFA',
+    backgroundColor: '#FFF0F5',
+    borderRadius: 20,
     padding: 20,
-    borderRadius: 10,
     width: '80%',
-    alignSelf: 'center',
-    justifyContent: 'flex-start', 
-    maxHeight: '80%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   botaoFechar: {
-    marginTop: 20,
-    backgroundColor: '#c2185b',
-    paddingVertical: 12,
-    paddingHorizontal: 25,
+    backgroundColor: '#d6336c',
     borderRadius: 10,
+    marginTop: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
   },
   textoBotaoFechar: {
     color: '#fff',
@@ -527,6 +516,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontFamily: 'JostRegular',
+  },
+  containerCampos: {
+    width: '80%',        
+    alignItems: 'center',    
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  labelCampo: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 5,
+    marginTop: 15,
   },
   iconeCarrinho: {
     position: 'absolute',
@@ -578,9 +579,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   textoDescontoLogin: {
-    color: 'black',
-    textAlign: 'center',
     fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 20,
     fontFamily: 'JostRegular',
   },
   inputCadastro: {
@@ -598,12 +600,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerSlider: {
-    justifyContent: 'center', 
-    alignItems: 'center', 
+    flexDirection: 'row', 
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '80%',
+    marginVertical: 20,
   },
   slider: {
-    width: 250, 
-    height: 40,
+    flex: 1,
+    marginHorizontal: 10,
   },
   switchContainerIdade: {
     flexDirection: 'column', 
@@ -615,11 +620,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 5,
   },
-  containerSwitch2: {
-    flex: 1,
-    justifyContent: 'center', // Centraliza verticalmente
+  containerSwitch: {
+    marginTop: 20,
     alignItems: 'center',
   },
+  switchRow:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  switchLabel: {
+    marginHorizontal: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+  numeroSlider:{
+    width: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#333',
+  }
 });
 
 export default App;
