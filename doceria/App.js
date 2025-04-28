@@ -218,7 +218,7 @@ const Card = ({ imagem, nome, preco, onAdd }) => {
     <View style={styles.cardProdutos}>
       <Image source={{ uri: imagem }} style={styles.imagem} />
       <Text style={styles.tituloProdutos}>{nome}</Text>
-      <Text style={styles.descricaoProdutos}>Preço: {preco}</Text>
+      <Text style={styles.precoProduto}>Preço: {preco}</Text>
       <TouchableOpacity style={styles.botaoAdicionar} onPress={onAdd}>
         <Text style={styles.textoBotaoAdicionar}>Adicionar</Text>
       </TouchableOpacity>
@@ -386,7 +386,10 @@ const styles = StyleSheet.create({
     color: '#C2516F',
     marginTop: 10,
     fontFamily: 'JostRegular',
-    textDecorationLine: 'underline',
+  },
+  precoProduto: {
+    fontSize: 14,
+    color: '##bdbdbd',
   },
   descricaoProdutos: {
     fontSize: 14,
@@ -472,20 +475,23 @@ const styles = StyleSheet.create({
   inputFocus: {
     borderColor: '#B03052'
   },
-  modalContainerCarrinho: { 
-    backgroundColor: '#FFEDFA',
+  modalContainerCarrinho: {
+    backgroundColor: '#FFF0F5',
+    borderRadius: 20,
     padding: 20,
-    borderRadius: 10,
     width: '80%',
-    alignSelf: 'center',
-    justifyContent: 'flex-start', 
-    maxHeight: '80%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   imagemModalCarrinho: {
-    width: 130,
-    height: 130,
-    resizeMode: "contain", 
-    alignSelf: 'center'
+    width: 100,
+    height: 100,
+    marginTop: 20,
+    resizeMode: 'contain',
   },
   modalContainerLogin: {
     backgroundColor: '#FFEDFA',
@@ -497,29 +503,24 @@ const styles = StyleSheet.create({
     maxHeight: '80%',
   },
   botaoFechar: {
-    width: 200,
-    backgroundColor: '#B03052',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 20,
     marginTop: 20,
-    alignSelf: 'center'
+    backgroundColor: '#c2185b',
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
   },
   textoBotaoFechar: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 16,
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
     fontFamily: 'JostRegular',
   },
   tituloModal: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 10,
-    alignSelf: 'center',
-    fontFamily: 'PacificoRegular',
-    color: '#B03052'
+    color: '#c2185b',
+    fontFamily: 'Cursive',
+    marginBottom: 20,
   },
   textoConteudoModal: {
     color: 'black',
@@ -539,40 +540,42 @@ const styles = StyleSheet.create({
   },
   modalBackground: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  itemCarrinho: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  itemCarrinho: {
+    padding: 8,
+    alignItems: 'center',
+  },
   textoItemCarrinho: {
-    color: 'black',
-    textAlign: 'center',
-    fontSize: 16,
+    fontSize: 18,
+    color: '#333',
     fontFamily: 'JostRegular',
   },
   textoTotalCarrinho: {
-    color: 'black',
-    textAlign: 'center',
-    fontSize: 20,
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#c2185b',
+    marginTop: 20,
     fontFamily: 'JostRegular',
   },
   textoCarrinho: {
-    color: 'black',
-    textAlign: 'center',
-    fontSize: 20,
+    fontSize: 18,
+    color: '#333',
+    marginTop: 20,
+    marginBottom: 5,
     fontFamily: 'JostRegular',
   },
   pickerPagamento: {
-  height: 30,
-  width: 150,
-  marginBottom: 10, 
-  backgroundColor: '#F2F2F2',
-  marginTop: 10,
-  alignSelf: 'center',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#F8BBD0',
+    borderRadius: 8,
+    width: '100%',
+    height: 50,
+    marginTop: 10,
+    paddingLeft: 10,
   },
   textoDescontoLogin: {
     color: 'black',
